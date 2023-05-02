@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ec83278d6e8a9648be21d3e4e6cd7fd, type: 3}
+  m_Name: CliffTileReverse
+  m_EditorClassIdentifier: 
+  tileGO: {fileID: 7080365742802441698, guid: 750f11213422a9f46870b8dea53e947c, type: 3}
+  tileStride: 0.5
+  offset: {x: 0, y: 0, z: 0}
+  tileRotation: {x: 0, y: 1, z: 0, w: -0.00000004371139}
+  isSafe: 1
+  tileWeights:
+  - tile: {fileID: 11400000, guid: da548446742bfe74590bf32b83f77312, type: 2}
+    weight: 1
