@@ -5,15 +5,22 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public float speed;
-    public Vector3 dir;
-    Quaternion rotation;
     private enum PlayerDirection {Stop,Forward,Right};
     private PlayerDirection playerDirection;
+    private Vector3 targetPosition;
 
+    private float horizontalMove;
+    private float verticalMove;
+    public CharacterController player;  
     // Start is called before the first frame update
     void Start()
     {
       playerDirection = PlayerDirection.Stop;
+      player = GetComponent<CharacterController>();
+      speed = 5f;
+      horizontalMove = 0f;
+      verticalMove = 0f;
+      
     }
 
     // Update is called once per frame
@@ -31,25 +38,25 @@ public class PlayerController : MonoBehaviour
                     break;
                 case PlayerDirection.Forward:
                     playerDirection = PlayerDirection.Right;
-                    //Vector3 targetPosition = new Vector3(1f, transform.position.y, transform.position.z);
-                    
+                    horizontalMove = 1f;
+                    verticalMove = 0f;
                     targetPosition = new Vector3(1f, transform.position.y, transform.position.z);
                     transform.LookAt(targetPosition);
                     break;
                 case PlayerDirection.Right:
                     playerDirection = PlayerDirection.Forward;
-                    //Vector3 targetPosition = new Vector3(transform.position.x, transform.position.y, 1f);
-                    targetPosition = new Vector3(3f, transform.position.y, transform.position.z);
+                    horizontalMove = 0f;
+                    verticalMove = 1f;
+                    targetPosition = new Vector3(, transform.position.y, transform.position.z);
                     transform.LookAt(targetPosition);
                     break;
-                
+             
                 default:
                     break;
             }
         }
-        float amountToMove = speed * Time.deltaTime;
-   
-        transform.Translate(new Vector3(0,0,1) * amountToMove);    
+        player.Move(new Vector3(horizontalMove,0,verticalMove) * Time.deltaTime * speed);
+
     }
 
 
