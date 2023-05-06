@@ -40,14 +40,14 @@ public class PlayerController : MonoBehaviour
                     playerDirection = PlayerDirection.Right;
                     horizontalMove = 1f;
                     verticalMove = 0f;
-                    targetPosition = new Vector3(1f, transform.position.y, transform.position.z);
+                    targetPosition = new Vector3(transform.position.x +1 , transform.position.y, transform.position.z);
                     transform.LookAt(targetPosition);
                     break;
                 case PlayerDirection.Right:
                     playerDirection = PlayerDirection.Forward;
                     horizontalMove = 0f;
                     verticalMove = 1f;
-                    targetPosition = new Vector3(, transform.position.y, transform.position.z);
+                    targetPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z+1);
                     transform.LookAt(targetPosition);
                     break;
              
