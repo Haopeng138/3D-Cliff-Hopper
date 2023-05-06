@@ -21,6 +21,10 @@ public class PlayerController : MonoBehaviour
     public int maxJumps = 2;
     private int jumpsLeft;
 
+
+    // Animation
+    private Animator animator;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,6 +36,8 @@ public class PlayerController : MonoBehaviour
 
       rg = GetComponent<Rigidbody>();
       jumpsLeft = maxJumps;
+
+      animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -110,7 +116,9 @@ public class PlayerController : MonoBehaviour
         Vector3 dir = transform.right * verticalMove + transform.forward * horizontalMove;
         Debug.Log(dir);
         rg.MovePosition(transform.position + dir * speed * Time.deltaTime);
-
+        
+        animator.SetFloat("VelX",horizontalMove);
+        animator.SetFloat("VelY",verticalMove);
 
     }
 
