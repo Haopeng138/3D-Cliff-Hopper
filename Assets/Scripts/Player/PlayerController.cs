@@ -14,6 +14,8 @@ public class PlayerController : MonoBehaviour
     private float verticalMove;
     public CharacterController player;  
     private Vector3 playerMovement;
+    private Vector3 playerRotation;
+
     // Jump and Gravity
     Rigidbody rg;
     public float jumpForce = 5.0f;
@@ -24,6 +26,7 @@ public class PlayerController : MonoBehaviour
 
     // Animation
     private Animator animator;
+    public RuntimeAnimatorController playerAnimatorController;
 
     // Start is called before the first frame update
     void Start()
@@ -36,46 +39,15 @@ public class PlayerController : MonoBehaviour
 
       rg = GetComponent<Rigidbody>();
       jumpsLeft = maxJumps;
-
       animator = GetComponent<Animator>();
+      // Get the animator controller
+      animator.runtimeAnimatorController = playerAnimatorController ;
+      playerRotation = Vector3.zero;
     }
 
     // Update is called once per frame
     void Update()
     {
-        // Horizontal and Vertical move
-        /*
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            switch (playerDirection)
-            {
-                case PlayerDirection.Stop:
-                    playerDirection = PlayerDirection.Forward;
-                    break;
-                case PlayerDirection.Forward:
-                    playerDirection = PlayerDirection.Right;
-                    horizontalMove = 1f;
-                    verticalMove = 0f;
-                    targetPosition = new Vector3(transform.position.x +1 , transform.position.y, transform.position.z);
-                    transform.LookAt(targetPosition);
-                    break;
-                case PlayerDirection.Right:
-                    playerDirection = PlayerDirection.Forward;
-                    horizontalMove = 0f;
-                    verticalMove = 1f;
-                    targetPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z+1);
-                    transform.LookAt(targetPosition);
-                    break;
-             
-                default:
-                    break;
-            }
-        }
-        player.Move(new Vector3(horizontalMove,0,verticalMove) * Time.deltaTime * speed);
-        */
-
-        
-
         // isJumping = Input.GetKeyDown(KeyCode.Space);
         // if(isJumping && jumpsLeft > 0 )
         // {
@@ -100,6 +72,7 @@ public class PlayerController : MonoBehaviour
                     verticalMove = 0f;
                     // targetPosition = new Vector3(transform.position.x +1 , transform.position.y, transform.position.z);
                     // transform.LookAt(targetPosition);
+                    playerRotation = new Vector3(0,90,0);
                     break;
                 case PlayerDirection.Right:
                     playerDirection = PlayerDirection.Forward;
@@ -107,18 +80,31 @@ public class PlayerController : MonoBehaviour
                     verticalMove = 1f;
                     // targetPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z+1);
                     // transform.LookAt(targetPosition);
+                    playerRotation = new Vector3(0,-90,0);
                     break;
              
                 default:
                     break;
             }
         }
-        Vector3 dir = transform.right * verticalMove + transform.forward * horizontalMove;
-        Debug.Log(dir);
+        // Vector3 dir = transform.right * verticalMove + transform.forward * horizontalMove;
+        // Debug.Log(dir);
+        Vector3 dir = new Vector3(horizontalMove,0,verticalMove);
         rg.MovePosition(transform.position + dir * speed * Time.deltaTime);
         
+        // Animation 
         animator.SetFloat("VelX",horizontalMove);
         animator.SetFloat("VelY",verticalMove);
+
+    }
+
+    void FixedUpdate()
+    {
+        if (playerRotation != Vector3.zero){
+            Quaternion deltaRotation = Quaternion.Euler(playerRotation);
+            rg.MoveRotation(rg.rotation * deltaRotation);
+            playerRotation = Vector3.zero;
+        }
 
     }
 
@@ -126,7 +112,6 @@ public class PlayerController : MonoBehaviour
         // Change this to a other tags
         if (col.gameObject.name == "Plane") {
             jumpsLeft = maxJumps;
-            Debug.Log("Reset Jumps");
         }
 
     }

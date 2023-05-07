@@ -564,7 +564,7 @@ Transform:
   m_GameObject: {fileID: 1239390928}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 10, y: 10, z: 10}
+  m_LocalScale: {x: 100, y: 100, z: 100}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -609,6 +609,7 @@ MonoBehaviour:
   player: {fileID: 1527309433}
   jumpForce: 5
   maxJumps: 2
+  playerAnimatorController: {fileID: 9100000, guid: 6f2402730b4f5420f80f763639141b31, type: 2}
 --- !u!65 &1527309435
 BoxCollider:
   m_ObjectHideFlags: 0
