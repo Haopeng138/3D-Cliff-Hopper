@@ -18,16 +18,18 @@ public class PlayerController : MonoBehaviour
 
     // Jump and Gravity
     Rigidbody rg;
-    public float jumpForce = 5.0f;
+    public float jumpForce = 15.0f;
     bool isJumping=false;
     public int maxJumps = 2;
     private int jumpsLeft;
+    public float DownForce = -20f;
 
 
     // Animation
     private Animator animator;
     public RuntimeAnimatorController playerAnimatorController;
-
+    private bool AnimationIsJumping = false;
+    private bool IsGrounded = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -70,16 +72,12 @@ public class PlayerController : MonoBehaviour
                     playerDirection = PlayerDirection.Right;
                     horizontalMove = 1f;
                     verticalMove = 0f;
-                    // targetPosition = new Vector3(transform.position.x +1 , transform.position.y, transform.position.z);
-                    // transform.LookAt(targetPosition);
                     playerRotation = new Vector3(0,90,0);
                     break;
                 case PlayerDirection.Right:
                     playerDirection = PlayerDirection.Forward;
                     horizontalMove = 0f;
                     verticalMove = 1f;
-                    // targetPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z+1);
-                    // transform.LookAt(targetPosition);
                     playerRotation = new Vector3(0,-90,0);
                     break;
              
@@ -87,15 +85,31 @@ public class PlayerController : MonoBehaviour
                     break;
             }
         }
-        // Vector3 dir = transform.right * verticalMove + transform.forward * horizontalMove;
-        // Debug.Log(dir);
+
+    
         Vector3 dir = new Vector3(horizontalMove,0,verticalMove);
         rg.MovePosition(transform.position + dir * speed * Time.deltaTime);
-        
+        isJumping = Input.GetKeyDown(KeyCode.UpArrow);
+        if(isJumping && jumpsLeft > 0 )
+        {
+            Debug.Log("Jumping");
+            rg.AddForce(new Vector3(0,jumpForce,0),ForceMode.Impulse);
+            AnimationIsJumping = true;
+            jumpsLeft--;
+        }
         // Animation 
-        animator.SetFloat("VelX",horizontalMove);
-        animator.SetFloat("VelY",verticalMove);
+        if (!AnimationIsJumping){
+            animator.SetFloat("VelX",horizontalMove);
+            animator.SetFloat("VelY",verticalMove);
 
+        }else {
+            Debug.Log("AnimationIsJumping");
+            animator.SetFloat("VelX",1);
+            animator.SetFloat("VelY",1);
+      
+        }
+       
+        Debug.Log(rg.velocity);
     }
 
     void FixedUpdate()
@@ -110,8 +124,10 @@ public class PlayerController : MonoBehaviour
 
     void OnCollisionEnter(Collision col) {
         // Change this to a other tags
+    
         if (col.gameObject.name == "Plane") {
             jumpsLeft = maxJumps;
+            AnimationIsJumping = false;
         }
 
     }
