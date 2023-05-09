@@ -7,7 +7,7 @@ public class BaseTile : MonoBehaviour {
     //public List<TileWeight> tileWeight;
     public Direction tileOrientation; 
     public int offset;
-
+    public TileMapController tileMapController;
     public bool rotateTile;
     
     void Start(){  

@@ -17,6 +17,9 @@ public class TileMapController : MonoBehaviour
     private int centerOffset = 0;
     public int centerOffsetMax = 4;
 
+    public int currentHeight = 0;
+    public int maxHeight = 10;
+
     // Start is called before the first frame update
     void Start()
     { 
@@ -38,7 +41,7 @@ public class TileMapController : MonoBehaviour
             
             centerOffset += currentDirection == Direction.X ? -1 : 1;
             
-            if (currentTile.isSafe)
+            if (currentTile.canBeReplaced)
             {
                 switch (currentDirection)
                 {
@@ -56,28 +59,32 @@ public class TileMapController : MonoBehaviour
     }
 
     void nextTile(){
-        addStride();
+        addStride(false);
         currentTile = currentTile.nextTile(this);
-        addStride();
+        addStride(true);
     
     }
 
     BaseTile spawnCurrentTile(){
-        BaseTile newTile = currentTile.spawnTile(tileLocation, currentDirection);
+        BaseTile newTile = currentTile.spawnTile(tileLocation, currentDirection, this);
         newTile.offset = centerOffset;
         newTile.gameObject.transform.parent = gameObject.transform;
         return newTile;
     }
 
-    void addStride(){
+    void addStride(bool height){
         switch(currentDirection) 
         {
         case Direction.Z:
-            tileLocation.z += currentTile.tileStride;
+            tileLocation.z += currentTile.nextTileStride.x;
         break;
         case Direction.X:
-            tileLocation.x += currentTile.tileStride;
+            tileLocation.x += currentTile.nextTileStride.x;
         break;
+        }
+        if (height) {
+            tileLocation.y += currentTile.nextTileStride.y;
+            currentHeight += (int)currentTile.nextTileStride.y;
         }
     }
 
