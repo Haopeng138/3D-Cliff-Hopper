@@ -13,10 +13,12 @@ MonoBehaviour:
   m_Name: SingleEmptyTile
   m_EditorClassIdentifier: 
   tileGO: {fileID: 1586326998737134658, guid: 658fa8a61a15911489a5d3515ba647ff, type: 3}
-  tileStride: 0.5
-  offset: {x: 0, y: 0, z: 0}
+  tileScaffoldGO: {fileID: 0}
+  scaffoldHeight: 1
+  nextTileStride: {x: 0.5, y: 0, z: 0}
+  localOffset: {x: 0, y: 0, z: 0}
   tileRotation: {x: 0, y: 0, z: 0, w: 1}
-  isSafe: 0
+  canBeReplaced: 0
   tileWeights:
   - tile: {fileID: 11400000, guid: 833fc621e4ba4fc4580fc15d146a03df, type: 2}
     weight: 1

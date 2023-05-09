@@ -4,40 +4,64 @@ using UnityEngine;
 [CustomEditor(typeof(BaseTileSO))]
 public class BaseTileSOEditor : Editor
 {
+    
+    private SerializedProperty tileGOProp;
+    private SerializedProperty tileScaffoldGOProp;
+    private SerializedProperty scaffoldHeightProp;
+    private SerializedProperty tileStrideProp;
+    private SerializedProperty localOffsetProp; 
+    private SerializedProperty tileRotationProp;
+    private SerializedProperty canBeReplacedProp;
     private SerializedProperty tileWeightsProp;
     private GUIStyle boxStyle;
 
     private void OnEnable()
     {
+        tileGOProp = serializedObject.FindProperty("tileGO");
+        tileScaffoldGOProp = serializedObject.FindProperty("tileScaffoldGO");
+        scaffoldHeightProp = serializedObject.FindProperty("scaffoldHeight");
+        tileStrideProp = serializedObject.FindProperty("nextTileStride");
+        localOffsetProp = serializedObject.FindProperty("localOffset");
+        tileRotationProp = serializedObject.FindProperty("tileRotation");
+        canBeReplacedProp = serializedObject.FindProperty("canBeReplaced");
         tileWeightsProp = serializedObject.FindProperty("tileWeights");
-    }
-
-    private void initBoxStyle(){
-        if (boxStyle != null) return;
-        
-        boxStyle = new GUIStyle(GUI.skin.box);
-        boxStyle.normal.background = MakeTex(2, 2, new Color(0.8f, 0.8f, 0.8f, 1f));
-        boxStyle.padding = new RectOffset(4, 4, 4, 4);
     }
 
     public override void OnInspectorGUI()
     {
         serializedObject.Update();
+        EditorGUILayout.BeginVertical();
+        EditorGUILayout.LabelField("Tile");
+        EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.PropertyField(tileGOProp, label: GUIContent.none);
+        EditorGUILayout.PropertyField(canBeReplacedProp, label: new GUIContent("Replaceable?"));
+        EditorGUILayout.EndHorizontal();
 
-
-        EditorGUILayout.PropertyField(serializedObject.FindProperty("tileGO"));
-        EditorGUILayout.PropertyField(serializedObject.FindProperty("isSafe"));
+        EditorGUILayout.LabelField("Scaffold");
+        EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.PropertyField(tileScaffoldGOProp, GUIContent.none);
+        EditorGUILayout.PropertyField(scaffoldHeightProp, new GUIContent("Height"));
+        EditorGUILayout.EndHorizontal();
 
         EditorGUI.indentLevel++;
         EditorGUILayout.BeginVertical();
-        EditorGUILayout.PropertyField(serializedObject.FindProperty("tileStride"));
-        EditorGUILayout.PropertyField(serializedObject.FindProperty("offset"));
-        EditorGUILayout.PropertyField(serializedObject.FindProperty("tileRotation"));
+        EditorGUILayout.PropertyField(tileStrideProp);
+        EditorGUILayout.PropertyField(localOffsetProp);
+        EditorGUILayout.PropertyField(tileRotationProp);
         EditorGUILayout.EndVertical();
         EditorGUI.indentLevel--;
         
         EditorGUILayout.Separator();
 
+        EditorGUILayout.EndVertical();
+        
+        tileWeightsDrawer();
+
+
+        serializedObject.ApplyModifiedProperties();
+    }
+
+    private void tileWeightsDrawer(){
         initBoxStyle();
         Rect backgroundRect = EditorGUILayout.BeginVertical(boxStyle);
         
@@ -72,10 +96,19 @@ public class BaseTileSOEditor : Editor
         }
         EditorGUILayout.EndVertical();
 
-        EditorGUI.indentLevel--;
 
-        serializedObject.ApplyModifiedProperties();
+        EditorGUI.indentLevel--;
     }
+
+    private void initBoxStyle(){
+        
+        if (boxStyle != null) return;
+        
+        boxStyle = new GUIStyle(GUI.skin.box);
+        boxStyle.normal.background = MakeTex(2, 2, new Color(0.8f, 0.8f, 0.8f, 1f));
+        boxStyle.padding = new RectOffset(4, 4, 4, 4);
+    }
+
 
     private Texture2D MakeTex(int width, int height, Color color)
     {
