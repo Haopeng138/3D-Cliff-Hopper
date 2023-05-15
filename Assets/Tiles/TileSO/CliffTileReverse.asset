@@ -13,10 +13,12 @@ MonoBehaviour:
   m_Name: CliffTileReverse
   m_EditorClassIdentifier: 
   tileGO: {fileID: 7080365742802441698, guid: 750f11213422a9f46870b8dea53e947c, type: 3}
-  tileStride: 0.5
-  offset: {x: 0, y: 0, z: 0}
+  tileScaffoldGO: {fileID: 0}
+  scaffoldHeight: 1
+  nextTileStride: {x: 0.5, y: 0, z: 0}
+  localOffset: {x: 0, y: 0, z: 0}
   tileRotation: {x: 0, y: 1, z: 0, w: -0.00000004371139}
-  isSafe: 1
+  canBeReplaced: 0
   tileWeights:
   - tile: {fileID: 11400000, guid: da548446742bfe74590bf32b83f77312, type: 2}
     weight: 1
