@@ -13,7 +13,9 @@ public class Singleton<T>: MonoBehaviour where T : MonoBehaviour
         }
     }
 
-    public void Awake() {
-        _instance = (T) (object) this;
+    void Awake() 
+    {
+       
+        _instance = (T)(object)this;
     }
 }

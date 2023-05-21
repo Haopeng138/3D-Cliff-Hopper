@@ -1,28 +1,74 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System.Linq;
 
 public class PanelManager : Singleton<PanelManager>
 {
-    public List<PanelModel> Panels;
 
-    private Queue<PanelInstanceModel> _queue = new Queue<PanelInstanceModel>();
-    public void ShowPanel(string panelId)
+    private List<PanelInstanceModel> _listInstances = new List<PanelInstanceModel>();
+
+    private ObjectPool _objectPool;
+
+    private void Start()
     {
-        PanelModel panelModel = Panels.FirstOrDefault(panel => panel.PanelId == panelId);
+        Debug.Log("PanelManager Start");
+        _objectPool = ObjectPool.Instance;
+    }
 
-        if (panelModel != null){
-            var newInstancePanel  = Instantiate(panelModel.PanelPrefab, transform);
+    public void ShowPanel(string panelId,PanelsShowBehaviours behaviour = PanelsShowBehaviours.KEEP_PREVIOUS)
+    {
+      
+        GameObject panelInstance = _objectPool.GetObjectFromPool(panelId);
 
-            _queue.Enqueue(new PanelInstanceModel
+        if (panelInstance != null){
+           
+            if (behaviour == PanelsShowBehaviours.HIDE_PREVIOUS && GetAmountPanelsInQueue() > 0){
+                var lastPanel = GetLastPanel();
+                if (lastPanel != null){
+                    lastPanel.PanelInstance.SetActive(false);
+                }
+            }
+
+            _listInstances.Add(new PanelInstanceModel
             {
                 PanelId = panelId,
-                PanelInstance = newInstancePanel
+                PanelInstance = panelInstance
             });
         }else
         {
             Debug.LogError("Panel with id " + panelId + " not found");
         }
+    }
+
+    PanelInstanceModel GetLastPanel(){
+        return _listInstances[_listInstances.Count - 1];
+    }
+
+    public void HideLastPanel(){
+        if (AnyPanelShowing()){
+            var lastPanel = GetLastPanel();
+            _listInstances.Remove(lastPanel);
+
+            _objectPool.PoolObject(lastPanel.PanelInstance); 
+
+            if (GetAmountPanelsInQueue() > 0){
+                lastPanel = GetLastPanel();
+                if(lastPanel != null && !lastPanel.PanelInstance.activeInHierarchy){
+                    lastPanel.PanelInstance.SetActive(true);
+                }
+            } 
+        }
+
+
+
+    }
+
+    public bool AnyPanelShowing(){
+        return  GetAmountPanelsInQueue() > 0;
+    }
+
+    public int GetAmountPanelsInQueue(){
+        return _listInstances.Count;
     }
 }
