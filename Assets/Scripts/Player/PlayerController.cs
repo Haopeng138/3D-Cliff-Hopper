@@ -63,6 +63,7 @@ public class PlayerController : MonoBehaviour
             rg.AddForce(new Vector3(0,jumpForce,0),ForceMode.Impulse);
             AnimationIsJumping = true;
             jumpsLeft--;
+            AudioManager.instance.PlaySFX("Jump");
         }
 
         
