@@ -21,6 +21,7 @@ public class PanelManager : Singleton<PanelManager>
       
         GameObject panelInstance = _objectPool.GetObjectFromPool(panelId);
         panelInstance.transform.localPosition = Vector3.zero;
+        panelInstance.SetActive(true);
 
         if (panelInstance != null){
            

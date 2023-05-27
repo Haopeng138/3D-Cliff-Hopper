@@ -133,7 +133,6 @@ GameObject:
   m_Component:
   - component: {fileID: 322613288}
   - component: {fileID: 322613289}
-  - component: {fileID: 322613290}
   m_Layer: 5
   m_Name: PanelManager
   m_TagString: Untagged
@@ -173,19 +172,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cdff7a7ac24d4823b31a649fca93018, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &322613290
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 322613287}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 48427e34c3fe246efb2390f84ef3fa02, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PrefabsForPool: []
 --- !u!1 &328798597
 GameObject:
   m_ObjectHideFlags: 0
@@ -361,6 +347,7 @@ GameObject:
   - component: {fileID: 676037546}
   - component: {fileID: 676037545}
   - component: {fileID: 676037549}
+  - component: {fileID: 676037550}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -464,8 +451,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PrefabsForPool:
-  - {fileID: 5813961559497226028, guid: a8865c39b9a184c718521da08325e12c, type: 3}
-  - {fileID: 3819951897713300470, guid: fc945b783d8b244d1ba4942f0310f295, type: 3}
+  - {fileID: 3128286266903483218, guid: 9e2c64a12127c4344ab071d544b9d96b, type: 3}
+  - {fileID: 3128286266903483218, guid: a9cd211120541447098ab2ddd7ba2365, type: 3}
+  - {fileID: 3128286266903483218, guid: 67a02e691424f44f4a2aa2db9541d943, type: 3}
+  - {fileID: 3128286266903483218, guid: 6af817d7d3d544d5dbaaf8917298e047, type: 3}
+--- !u!222 &676037550
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 676037544}
+  m_CullTransparentMesh: 1
 --- !u!1 &1097842505
 GameObject:
   m_ObjectHideFlags: 0
@@ -503,7 +500,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -262, y: 127}
+  m_AnchoredPosition: {x: -313, y: 136}
   m_SizeDelta: {x: 30, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1097842507
@@ -518,7 +515,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94371ebd02c414534ae16ba2d936a185, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PanelId: MainPanel
+  PanelId: MainMenu
   Behaviour: 0
 --- !u!114 &1097842508
 MonoBehaviour:
