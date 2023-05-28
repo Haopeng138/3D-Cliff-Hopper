@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : EntityController
 {
+/*
     // Hotizontal and Vertical move
     public float speed;
     private enum PlayerDirection {Stop,Forward,Right};
@@ -20,108 +21,97 @@ public class PlayerController : MonoBehaviour
     bool isJumping=false;
     public int maxJumps = 2;
     private int jumpsLeft;
+*/
+    public Material playerSkin;
 
-    // Start is called before the first frame update
+    [SerializeField]
+    private Animator animator;
+    [SerializeField]
+    private RuntimeAnimatorController playerAnimatorController;
+
+    [Tooltip("Animator parameters")]
+    [SerializeField]
+    private string idleParameter = "enterIdle";
+    [SerializeField]
+    private string moveParameter = "enterMoving";
+    [SerializeField]
+    private string jumpParameter = "enterJumping";
+    [SerializeField]
+    private string fallParameter = "enterFalling";
+    [SerializeField]
+    private string deadParameter = "-";
+
     void Start()
     {
-      playerDirection = PlayerDirection.Stop;
-      player = GetComponent<CharacterController>();
-      speed = 5f;
-      horizontalMove = 0f;
-      verticalMove = 0f;
-
-      rg = GetComponent<Rigidbody>();
-      jumpsLeft = maxJumps;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        // Horizontal and Vertical move
-        /*
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            switch (playerDirection)
-            {
-                case PlayerDirection.Stop:
-                    playerDirection = PlayerDirection.Forward;
-                    break;
-                case PlayerDirection.Forward:
-                    playerDirection = PlayerDirection.Right;
-                    horizontalMove = 1f;
-                    verticalMove = 0f;
-                    targetPosition = new Vector3(transform.position.x +1 , transform.position.y, transform.position.z);
-                    transform.LookAt(targetPosition);
-                    break;
-                case PlayerDirection.Right:
-                    playerDirection = PlayerDirection.Forward;
-                    horizontalMove = 0f;
-                    verticalMove = 1f;
-                    targetPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z+1);
-                    transform.LookAt(targetPosition);
-                    break;
-             
-                default:
-                    break;
+        base.Start();
+        animator = GetComponent<Animator>();
+        animator.runtimeAnimatorController = playerAnimatorController;
+        if (playerSkin != null){
+            var renders = GetComponentsInChildren<SkinnedMeshRenderer>();
+            foreach (var render in renders){
+                render.material = playerSkin;
             }
         }
-        player.Move(new Vector3(horizontalMove,0,verticalMove) * Time.deltaTime * speed);
-        */
+    }
 
-        
+    void Update(){
+        base.Update();
+        animator.SetFloat("movementSpeed", ((velocity.x > velocity.z) ? velocity.x : velocity.z) / moveSpeed);
+    }
 
-        // isJumping = Input.GetKeyDown(KeyCode.Space);
-        // if(isJumping && jumpsLeft > 0 )
-        // {
-        //     Debug.Log("Jumping");
-        //     rg.AddForce(new Vector3(0,jumpForce,0),ForceMode.Impulse);
-        //     jumpsLeft--;
-        // }
-        // player.Move(new Vector3(horizontalMove,0,verticalMove) * Time.deltaTime * speed);
 
-        // Rigidbody movement 
-
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            switch (playerDirection)
-            {
-                case PlayerDirection.Stop:
-                    playerDirection = PlayerDirection.Forward;
-                    break;
-                case PlayerDirection.Forward:
-                    playerDirection = PlayerDirection.Right;
-                    horizontalMove = 1f;
-                    verticalMove = 0f;
-                    // targetPosition = new Vector3(transform.position.x +1 , transform.position.y, transform.position.z);
-                    // transform.LookAt(targetPosition);
-                    break;
-                case PlayerDirection.Right:
-                    playerDirection = PlayerDirection.Forward;
-                    horizontalMove = 0f;
-                    verticalMove = 1f;
-                    // targetPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z+1);
-                    // transform.LookAt(targetPosition);
-                    break;
-             
-                default:
-                    break;
+    override public bool Jump(){
+        bool jumpPressed = Input.GetKeyDown("space");//Input.GetButtonDown("Jump");
+        //Debug.Log("[PLAYER] Jump: " + Input.GetButtonDown("Jump")); 
+        if (currentTile != null && jumpPressed){
+            //onTap returns TRUE if the tile overrides the default behaviour (jump)
+            if (currentTile.onTap(this)){
+                jumpPressed = false;
             }
         }
-        Vector3 dir = transform.right * verticalMove + transform.forward * horizontalMove;
-        Debug.Log(dir);
-        rg.MovePosition(transform.position + dir * speed * Time.deltaTime);
-
-
+        return  jumpPressed;
     }
 
-    void OnCollisionEnter(Collision col) {
-        // Change this to a other tags
-        if (col.gameObject.name == "Plane") {
-            jumpsLeft = maxJumps;
-            Debug.Log("Reset Jumps");
-        }
+    #region Enter States
 
+    override protected void enterIdleState(){
+        animator.SetTrigger(idleParameter);
     }
 
+    override protected void enterMovingState(){
+        animator.SetTrigger(moveParameter);
+    }
 
+    override protected void enterJumpingState(){
+        animator.SetTrigger(jumpParameter);
+    }
+
+    override protected void enterFallingState(){
+        animator.SetTrigger(fallParameter);
+    }
+
+    override protected void enterDeadState(){
+        animator.SetTrigger(deadParameter);
+    }
+
+    #endregion
+
+    #region Exit States
+
+    override protected void exitIdleState(){
+        animator.ResetTrigger(idleParameter);
+    }
+    override protected void exitMovingState(){
+        animator.ResetTrigger(moveParameter);
+    }
+    override protected void exitJumpingState(){
+        animator.ResetTrigger(jumpParameter);
+    }
+    override protected void exitFallingState(){
+        animator.ResetTrigger(fallParameter);
+    }
+    override protected void exitDeadState(){
+        animator.ResetTrigger(deadParameter);
+    }
+    #endregion
 }

@@ -19,6 +19,8 @@ public class TileMapController : MonoBehaviour
 
     public int currentHeight = 0;
     public int maxHeight = 10;
+    public int minHeight = -3;
+
 
     // Start is called before the first frame update
     void Start()
@@ -27,11 +29,6 @@ public class TileMapController : MonoBehaviour
         CreateMap();        
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     void CreateMap(){
         for (int i = 0; i < maxTiles; i++)
@@ -68,7 +65,7 @@ public class TileMapController : MonoBehaviour
     BaseTile spawnCurrentTile(){
         BaseTile newTile = currentTile.spawnTile(tileLocation, currentDirection, this);
         newTile.offset = centerOffset;
-        newTile.gameObject.transform.parent = gameObject.transform;
+        newTile.gameObject.transform.parent.transform.parent = gameObject.transform;
         return newTile;
     }
 

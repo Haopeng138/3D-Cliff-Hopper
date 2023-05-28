@@ -4,8 +4,17 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour {
     public Transform target;
-    public Vector3 offset = new Vector3(75,75,75), velocity = Vector3.zero;
+    [SerializeField]
+    private Vector3 velocity = Vector3.zero;
+    public float distance;
+    public float height;
     public float smoothTime;
+
+    void Start(){
+        transform.position = new Vector3(1,1,1);
+        transform.LookAt(Vector3.zero);
+        transform.position = target.position + new Vector3(1,1,1) * distance;
+    }
 
     void Update() {
         if (target != null) FollowTarget(target);
@@ -17,9 +26,13 @@ public class CameraFollow : MonoBehaviour {
     // }
 
     public void FollowTarget(Transform t) {
-        Vector3 localPos = transform.localPosition;
-        Vector3 targetLocalPos = t.transform.localPosition;
-        transform.localPosition = Vector3.SmoothDamp(localPos, new Vector3(targetLocalPos.x + 75, 75, targetLocalPos.z + 75), ref velocity, smoothTime);
+        Vector3 localPos = transform.position;
+        Vector3 targetLocalPos = t.transform.position;
+        //float xz = (targetLocalPos.x + targetLocalPos.z)/2 * Mathf.Cos(Mathf.PI/4) + distance;
+        float xz = (targetLocalPos.x > targetLocalPos.z ? targetLocalPos.x : targetLocalPos.z )  + distance; 
+        //Mathf.Sqrt(distance * distance - Mathf.Pow(targetLocalPos.y - height ,2))/2 +(targetLocalPos.x + targetLocalPos.z/2) ;
+        transform.localPosition = Vector3.SmoothDamp(localPos, new Vector3(xz, targetLocalPos.y + distance, xz), ref velocity, smoothTime);
+        //transform.LookAt(new Vector3(-1,-1,-1) + localPos, Vector3.up);
     }
     
 }
