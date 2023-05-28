@@ -905,6 +905,7 @@ MonoBehaviour:
   tileOrientation: 0
   area: 0.25
   offset: 0
+  debug: 0
 --- !u!1001 &1862170559
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1546,6 +1547,10 @@ PrefabInstance:
     - target: {fileID: 8944705996859510089, guid: 9cb54ac0e652e544e99f29b8e270d5d3, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8944705997877358543, guid: 9cb54ac0e652e544e99f29b8e270d5d3, type: 3}
+      propertyPath: m_Center.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8944705997877358544, guid: 9cb54ac0e652e544e99f29b8e270d5d3, type: 3}
       propertyPath: moveSpeed

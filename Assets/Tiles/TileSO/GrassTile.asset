@@ -20,7 +20,7 @@ MonoBehaviour:
   tileRotation: {x: 0, y: 0, z: 0, w: 1}
   canBeReplaced: 1
   tileWeights:
-  - tile: {fileID: 11400000}
+  - tile: {fileID: 11400000, guid: 9aa3d42a24ffd264d94246ea27ab42b2, type: 2}
     weight: 55
   - tile: {fileID: 11400000, guid: 744f14911b1f3da449c36f84dde25df0, type: 2}
     weight: 75
@@ -28,3 +28,7 @@ MonoBehaviour:
     weight: 10
   - tile: {fileID: 11400000, guid: bb01143cb8ffad6479c12427fd113510, type: 2}
     weight: 10
+  - tile: {fileID: 11400000, guid: 1339dcb686464e140821f39f4dc0cca1, type: 2}
+    weight: 10
+  - tile: {fileID: 11400000}
+    weight: 55

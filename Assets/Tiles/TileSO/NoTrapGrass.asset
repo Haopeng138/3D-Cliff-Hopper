@@ -21,4 +21,6 @@ MonoBehaviour:
   canBeReplaced: 1
   tileWeights:
   - tile: {fileID: 11400000}
-    weight: 1
+    weight: 5
+  - tile: {fileID: 11400000, guid: da548446742bfe74590bf32b83f77312, type: 2}
+    weight: 10
