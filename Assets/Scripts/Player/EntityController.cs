@@ -21,6 +21,8 @@ public class EntityController : MonoBehaviour
     [Space]
     [field: SerializeField]
     public EntityData entityData;
+    [SerializeField]
+    protected int currentHealth;
     protected float moveSpeed = 4f;
     protected int jumpsLeft;
 
@@ -38,6 +40,7 @@ public class EntityController : MonoBehaviour
     {
         moveSpeed = entityData.MoveSpeed;
         jumpsLeft = entityData.MaxJumps;
+        currentHealth = entityData.Health;
         controller = GetComponent<CharacterController>();
     }
 
@@ -85,6 +88,34 @@ public class EntityController : MonoBehaviour
             currentTile.onTap(this);
         // Always move the entity?
         moveEnity();
+    }
+
+#region Health
+
+    public void TakeDamage(int damage){
+        if (debug) Debug.Log(gameObject.name + " - Taking Damage: " + damage);
+        damage = Mathf.Abs(damage);
+        currentHealth -= damage;
+        if (entityData.Health <= 0){
+            changeState(EntityState.DEAD);
+        }
+    }
+
+    public void Heal(int healAmount){
+        if(debug) Debug.Log(gameObject.name + " - Healing: " + healAmount);
+        healAmount = Mathf.Abs(healAmount);
+        currentHealth += healAmount;
+        if (entityData.Health < currentHealth){
+            currentHealth = entityData.Health;
+        }
+    }
+
+#endregion
+
+    public void forceJump(float jumpForce) {
+        if (debug) Debug.Log("Forcing Jump");
+        changeState(EntityState.JUMPING);
+        velocity.y = jumpForce;
     }
 
 #region StateUpdates
@@ -296,4 +327,6 @@ public class EntityController : MonoBehaviour
 #endregion
 
 #endregion
+
+
 }
