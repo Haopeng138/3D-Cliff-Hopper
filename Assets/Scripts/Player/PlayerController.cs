@@ -15,9 +15,12 @@ public class PlayerController : EntityController
     private float verticalMove;
     public CharacterController player;  
     private Vector3 playerMovement;
+    private Vector3 playerRotation;
+
     // Jump and Gravity
     Rigidbody rg;
-    public float jumpForce = 5.0f;
+    private int jumpsLeft;
+    public float jumpForce = 15.0f;
     bool isJumping=false;
     public int maxJumps = 2;
     private int jumpsLeft;
