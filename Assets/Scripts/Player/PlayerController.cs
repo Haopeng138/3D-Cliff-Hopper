@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : EntityController
 {
+/*
     // Hotizontal and Vertical move
     public float speed;
     private enum PlayerDirection {Stop,Forward,Right};
@@ -22,117 +23,98 @@ public class PlayerController : MonoBehaviour
     public float jumpForce = 15.0f;
     bool isJumping=false;
     public int maxJumps = 2;
+    private int jumpsLeft;
+*/
+    public Material playerSkin;
 
-    public float DownForce = -20f;
-
-
-    // Animation
+    [SerializeField]
     private Animator animator;
-    public RuntimeAnimatorController playerAnimatorController;
-    private bool AnimationIsJumping = false;
-    private bool IsGrounded = true; 
-    // Start is called before the first frame update
+    [SerializeField]
+    private RuntimeAnimatorController playerAnimatorController;
+
+    [Tooltip("Animator parameters")]
+    [SerializeField]
+    private string idleParameter = "enterIdle";
+    [SerializeField]
+    private string moveParameter = "enterMoving";
+    [SerializeField]
+    private string jumpParameter = "enterJumping";
+    [SerializeField]
+    private string fallParameter = "enterFalling";
+    [SerializeField]
+    private string deadParameter = "-";
+
     void Start()
     {
-      playerDirection = PlayerDirection.Stop;
-      player = GetComponent<CharacterController>();
-      horizontalMove = 0f;
-      verticalMove = 0f;
-      rg = GetComponent<Rigidbody>();
-      jumpsLeft = maxJumps;
-      animator = GetComponent<Animator>();
-      // Get the animator controller
-      animator.runtimeAnimatorController = playerAnimatorController ;
-      playerRotation = Vector3.zero;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        // Change dir
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            changeDir();
-        }
-
-        // Jump 
-        isJumping = Input.GetKeyDown(KeyCode.UpArrow);
-        if(isJumping && jumpsLeft > 0 )
-        {
-            Debug.Log("Jumping");
-            rg.AddForce(new Vector3(0,jumpForce,0),ForceMode.Impulse);
-            AnimationIsJumping = true;
-            jumpsLeft--;
-            AudioManager.instance.PlaySFX("Jump");
-        }
-
-        
-
-        Vector3 dir = new Vector3(horizontalMove,0,verticalMove);
-        Debug.Log(dir);
-        rg.MovePosition(transform.position + dir * speed * Time.deltaTime);
-        if (rg.velocity.y < 0){
-            rg.AddForce(new Vector3(0,DownForce,0),ForceMode.Impulse);
-        }   
-
-
-        animation();
-
-    }
-
-    void FixedUpdate()
-    {
-        if (playerRotation != Vector3.zero){
-            Quaternion deltaRotation = Quaternion.Euler(playerRotation);
-            rg.MoveRotation(rg.rotation * deltaRotation);
-            playerRotation = Vector3.zero;
-        }
-
-    }
-
-    void OnCollisionEnter(Collision col) {
-        // Change this to a other tags
-    
-        if (col.gameObject.name == "Plane") {
-            jumpsLeft = maxJumps;
-            AnimationIsJumping = false;
-        }
-
-    }
-
-    void changeDir(){
-        switch (playerDirection)
-        {
-            case PlayerDirection.Stop:
-                playerDirection = PlayerDirection.Forward;
-                break;
-            case PlayerDirection.Forward:
-                playerDirection = PlayerDirection.Right;
-                horizontalMove = 1f;
-                verticalMove = 0f;
-                playerRotation = new Vector3(0,90,0);
-                break;
-            case PlayerDirection.Right:
-                playerDirection = PlayerDirection.Forward;
-                horizontalMove = 0f;
-                verticalMove = 1f;
-                playerRotation = new Vector3(0,-90,0);
-                break;
-            
-            default:
-                break;
+        base.Start();
+        animator = GetComponent<Animator>();
+        animator.runtimeAnimatorController = playerAnimatorController;
+        if (playerSkin != null){
+            var renders = GetComponentsInChildren<SkinnedMeshRenderer>();
+            foreach (var render in renders){
+                render.material = playerSkin;
+            }
         }
     }
 
-    void animation(){
-        if (AnimationIsJumping){
-            animator.SetFloat("VelX",1);
-            animator.SetFloat("VelY",1);
-        }else {
-            animator.SetFloat("VelX",horizontalMove);
-            animator.SetFloat("VelY",verticalMove);
-        }
+    void Update(){
+        base.Update();
+        animator.SetFloat("movementSpeed", ((velocity.x > velocity.z) ? velocity.x : velocity.z) / moveSpeed);
     }
 
 
+    override public bool Jump(){
+        bool jumpPressed = Input.GetKeyDown("space");//Input.GetButtonDown("Jump");
+        //Debug.Log("[PLAYER] Jump: " + Input.GetButtonDown("Jump")); 
+        if (currentTile != null && jumpPressed){
+            //onTap returns TRUE if the tile overrides the default behaviour (jump)
+            if (currentTile.onTap(this)){
+                jumpPressed = false;
+            }
+        }
+        return  jumpPressed;
+    }
+
+    #region Enter States
+
+    override protected void enterIdleState(){
+        animator.SetTrigger(idleParameter);
+    }
+
+    override protected void enterMovingState(){
+        animator.SetTrigger(moveParameter);
+    }
+
+    override protected void enterJumpingState(){
+        animator.SetTrigger(jumpParameter);
+    }
+
+    override protected void enterFallingState(){
+        animator.SetTrigger(fallParameter);
+    }
+
+    override protected void enterDeadState(){
+        animator.SetTrigger(deadParameter);
+    }
+
+    #endregion
+
+    #region Exit States
+
+    override protected void exitIdleState(){
+        animator.ResetTrigger(idleParameter);
+    }
+    override protected void exitMovingState(){
+        animator.ResetTrigger(moveParameter);
+    }
+    override protected void exitJumpingState(){
+        animator.ResetTrigger(jumpParameter);
+    }
+    override protected void exitFallingState(){
+        animator.ResetTrigger(fallParameter);
+    }
+    override protected void exitDeadState(){
+        animator.ResetTrigger(deadParameter);
+    }
+    #endregion
 }

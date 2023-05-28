@@ -13,10 +13,12 @@ MonoBehaviour:
   m_Name: SpikeTile
   m_EditorClassIdentifier: 
   tileGO: {fileID: 3967119022395896974, guid: f894e0dc973b660489dc7d0e7adcef03, type: 3}
-  tileStride: 0.5
-  offset: {x: 0, y: 0.5, z: 0}
+  tileScaffoldGO: {fileID: 0}
+  scaffoldHeight: 1
+  nextTileStride: {x: 0.5, y: 0, z: 0}
+  localOffset: {x: 0, y: 0, z: 0}
   tileRotation: {x: 0, y: 0, z: 0, w: 1}
-  isSafe: 0
+  canBeReplaced: 1
   tileWeights:
   - tile: {fileID: 11400000, guid: 7fc6113cbcae9854596a1efb202f3ea4, type: 2}
     weight: 45

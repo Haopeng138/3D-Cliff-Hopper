@@ -10,11 +10,11 @@ public struct TileWeight
 };
 
 
-[CreateAssetMenu(fileName = "BaseTileSO", menuName = "3D-Cliff-Hopper/BaseTileSO", order = 0)]
+[CreateAssetMenu(fileName = "BaseTileSO", menuName = "Tile/BaseTile", order = 0)]
 public class BaseTileSO : ScriptableObject {
 
     // Max Y level to spawn scaffold tiles
-    public static int depth = -4;
+    public static int depth = -5;
     
    // Top tile - CANNOR BE NULL
     public GameObject tileGO;
@@ -44,7 +44,7 @@ public class BaseTileSO : ScriptableObject {
             currentWeight += tileOption.weight;
             float yStride = tileOption.tile.nextTileStride.y;
 
-            if (tileMapController.currentHeight + yStride <= depth || tileMapController.currentHeight + yStride >= tileMapController.maxHeight) Debug.Log("Can't go any lower"); 
+            if (tileMapController.currentHeight + yStride <= tileMapController.minHeight || tileMapController.currentHeight + yStride >= tileMapController.maxHeight) Debug.Log("Can't go any lower"); 
             else if (randomWeight < currentWeight)
             {
                 if (mustBeSafe && !tileOption.tile.canBeReplaced)
@@ -66,13 +66,21 @@ public class BaseTileSO : ScriptableObject {
 
     public BaseTile spawnTile(Vector3 tileLocation, Direction currentDirection, TileMapController tileMapController){
         GameObject newTile = Instantiate(tileGO, tileLocation + localOffset, tileRotation);
-        BaseTile tile = newTile.GetComponent<BaseTile>();
+        BaseTile tile = newTile.GetComponentInChildren<BaseTile>();
         tile.tileOrientation = currentDirection;
+
+       
         tile.tileMapController = tileMapController;
         
         if (tileScaffoldGO != null){
             for (float y = tile.transform.position.y - 1; y > depth; y = y - scaffoldHeight){
-                Instantiate(tileScaffoldGO, new Vector3(tileLocation.x, y, tileLocation.z), tileRotation);
+                GameObject scaffold = Instantiate(tileScaffoldGO, new Vector3(tileLocation.x, y, tileLocation.z), tileRotation);
+                
+                scaffold.transform.parent = tile.transform;
+
+                var colliders = scaffold.GetComponents<Collider>();
+                foreach(var collider in colliders) collider.enabled = false;
+
             }
         }
         
