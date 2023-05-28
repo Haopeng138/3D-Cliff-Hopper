@@ -14,113 +14,124 @@ public class PlayerController : MonoBehaviour
     private float verticalMove;
     public CharacterController player;  
     private Vector3 playerMovement;
+    private Vector3 playerRotation;
+
     // Jump and Gravity
     Rigidbody rg;
-    public float jumpForce = 5.0f;
+    private int jumpsLeft;
+    public float jumpForce = 15.0f;
     bool isJumping=false;
     public int maxJumps = 2;
-    private int jumpsLeft;
 
+    public float DownForce = -20f;
+
+
+    // Animation
+    private Animator animator;
+    public RuntimeAnimatorController playerAnimatorController;
+    private bool AnimationIsJumping = false;
+    private bool IsGrounded = true; 
     // Start is called before the first frame update
     void Start()
     {
       playerDirection = PlayerDirection.Stop;
       player = GetComponent<CharacterController>();
-      speed = 5f;
       horizontalMove = 0f;
       verticalMove = 0f;
-
       rg = GetComponent<Rigidbody>();
       jumpsLeft = maxJumps;
+      animator = GetComponent<Animator>();
+      // Get the animator controller
+      animator.runtimeAnimatorController = playerAnimatorController ;
+      playerRotation = Vector3.zero;
     }
 
     // Update is called once per frame
     void Update()
     {
-        // Horizontal and Vertical move
-        /*
+        // Change dir
         if(Input.GetKeyDown(KeyCode.Space))
         {
-            switch (playerDirection)
-            {
-                case PlayerDirection.Stop:
-                    playerDirection = PlayerDirection.Forward;
-                    break;
-                case PlayerDirection.Forward:
-                    playerDirection = PlayerDirection.Right;
-                    horizontalMove = 1f;
-                    verticalMove = 0f;
-                    targetPosition = new Vector3(transform.position.x +1 , transform.position.y, transform.position.z);
-                    transform.LookAt(targetPosition);
-                    break;
-                case PlayerDirection.Right:
-                    playerDirection = PlayerDirection.Forward;
-                    horizontalMove = 0f;
-                    verticalMove = 1f;
-                    targetPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z+1);
-                    transform.LookAt(targetPosition);
-                    break;
-             
-                default:
-                    break;
-            }
+            changeDir();
         }
-        player.Move(new Vector3(horizontalMove,0,verticalMove) * Time.deltaTime * speed);
-        */
+
+        // Jump 
+        isJumping = Input.GetKeyDown(KeyCode.UpArrow);
+        if(isJumping && jumpsLeft > 0 )
+        {
+            Debug.Log("Jumping");
+            rg.AddForce(new Vector3(0,jumpForce,0),ForceMode.Impulse);
+            AnimationIsJumping = true;
+            jumpsLeft--;
+            AudioManager.instance.PlaySFX("Jump");
+        }
 
         
 
-        // isJumping = Input.GetKeyDown(KeyCode.Space);
-        // if(isJumping && jumpsLeft > 0 )
-        // {
-        //     Debug.Log("Jumping");
-        //     rg.AddForce(new Vector3(0,jumpForce,0),ForceMode.Impulse);
-        //     jumpsLeft--;
-        // }
-        // player.Move(new Vector3(horizontalMove,0,verticalMove) * Time.deltaTime * speed);
-
-        // Rigidbody movement 
-
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            switch (playerDirection)
-            {
-                case PlayerDirection.Stop:
-                    playerDirection = PlayerDirection.Forward;
-                    break;
-                case PlayerDirection.Forward:
-                    playerDirection = PlayerDirection.Right;
-                    horizontalMove = 1f;
-                    verticalMove = 0f;
-                    // targetPosition = new Vector3(transform.position.x +1 , transform.position.y, transform.position.z);
-                    // transform.LookAt(targetPosition);
-                    break;
-                case PlayerDirection.Right:
-                    playerDirection = PlayerDirection.Forward;
-                    horizontalMove = 0f;
-                    verticalMove = 1f;
-                    // targetPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z+1);
-                    // transform.LookAt(targetPosition);
-                    break;
-             
-                default:
-                    break;
-            }
-        }
-        Vector3 dir = transform.right * verticalMove + transform.forward * horizontalMove;
+        Vector3 dir = new Vector3(horizontalMove,0,verticalMove);
         Debug.Log(dir);
         rg.MovePosition(transform.position + dir * speed * Time.deltaTime);
+        if (rg.velocity.y < 0){
+            rg.AddForce(new Vector3(0,DownForce,0),ForceMode.Impulse);
+        }   
 
+
+        animation();
+
+    }
+
+    void FixedUpdate()
+    {
+        if (playerRotation != Vector3.zero){
+            Quaternion deltaRotation = Quaternion.Euler(playerRotation);
+            rg.MoveRotation(rg.rotation * deltaRotation);
+            playerRotation = Vector3.zero;
+        }
 
     }
 
     void OnCollisionEnter(Collision col) {
         // Change this to a other tags
+    
         if (col.gameObject.name == "Plane") {
             jumpsLeft = maxJumps;
-            Debug.Log("Reset Jumps");
+            AnimationIsJumping = false;
         }
 
+    }
+
+    void changeDir(){
+        switch (playerDirection)
+        {
+            case PlayerDirection.Stop:
+                playerDirection = PlayerDirection.Forward;
+                break;
+            case PlayerDirection.Forward:
+                playerDirection = PlayerDirection.Right;
+                horizontalMove = 1f;
+                verticalMove = 0f;
+                playerRotation = new Vector3(0,90,0);
+                break;
+            case PlayerDirection.Right:
+                playerDirection = PlayerDirection.Forward;
+                horizontalMove = 0f;
+                verticalMove = 1f;
+                playerRotation = new Vector3(0,-90,0);
+                break;
+            
+            default:
+                break;
+        }
+    }
+
+    void animation(){
+        if (AnimationIsJumping){
+            animator.SetFloat("VelX",1);
+            animator.SetFloat("VelY",1);
+        }else {
+            animator.SetFloat("VelX",horizontalMove);
+            animator.SetFloat("VelY",verticalMove);
+        }
     }
 
 

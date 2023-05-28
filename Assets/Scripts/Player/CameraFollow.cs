@@ -7,6 +7,9 @@ public class CameraFollow : MonoBehaviour {
     public Vector3 offset = new Vector3(75,75,75), velocity = Vector3.zero;
     public float smoothTime;
 
+    void Start() {
+       target = GameObject.Find("Player").transform;
+    }
     void Update() {
         if (target != null) FollowTarget(target);
     }
