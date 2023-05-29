@@ -922,8 +922,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  offset: {x: 0, y: 0, z: 0}
   velocity: {x: 0, y: 0, z: 0}
+  distance: 0
+  height: 0
   smoothTime: 0
 --- !u!1 &1239390928
 GameObject:
@@ -1360,12 +1361,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 651e9269cc4124d499e658b181b31151, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0
-  player: {fileID: 1527309433}
-  jumpForce: 15
-  maxJumps: 2
-  DownForce: -20
-  playerAnimatorController: {fileID: 0}
+  currentTile: {fileID: 0}
+  move: 1
+  entityData: {fileID: 0}
+  playerSkin: {fileID: 0}
+  animator: {fileID: 0}
+  playerAnimatorController: {fileID: 9100000, guid: 6f2402730b4f5420f80f763639141b31, type: 2}
+  idleParameter: enterIdle
+  moveParameter: enterMoving
+  jumpParameter: enterJumping
+  fallParameter: enterFalling
+  deadParameter: '-'
+--- !u!114 &1527309443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1527309432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edda04e78775947c4ba5edcd04c129a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  highScore: 0
 --- !u!1 &1576895992 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100036, guid: df38d25b6fd39b44eacfb4a2b784547c, type: 3}
