@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: PlayerData
   m_EditorClassIdentifier: 
   <Health>k__BackingField: 5
-  <FallMultiplier>k__BackingField: 1
+  <FallMultiplier>k__BackingField: 1.1
   <Gravity>k__BackingField: -9.8
   <MoveSpeed>k__BackingField: 3
   <MaxJumps>k__BackingField: 2
   <JumpSpeed>k__BackingField: 4.5
-  <GodMode>k__BackingField: 1
+  <GodMode>k__BackingField: 0

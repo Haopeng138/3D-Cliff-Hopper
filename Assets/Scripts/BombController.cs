@@ -4,14 +4,6 @@ using UnityEngine;
 
 public class BombController : EntityController
 {
-   
-    protected override void moveStateUpdate(){
-
-        base.moveStateUpdate();
-        
-
-        //velocity = directionVector * moveSpeed * Time.deltaTime;
-    }
 /*
     protected override void fallStateUpdate(){
         velocity.y += gravity * Time.deltaTime * fallMultiplier;

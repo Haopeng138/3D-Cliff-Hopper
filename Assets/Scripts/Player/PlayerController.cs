@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : EntityController
 {
@@ -60,6 +61,21 @@ public class PlayerController : EntityController
     void Update(){
         base.Update();
         animator.SetFloat("movementSpeed", ((velocity.x > velocity.z) ? velocity.x : velocity.z) / moveSpeed);
+
+        if (Input.GetKeyDown(KeyCode.R)) {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+
+        if (Input.GetKeyDown(KeyCode.G)) {
+            entityData.GodMode = !entityData.GodMode;
+            if (entityData.GodMode) {
+                Debug.Log("[PLAYER] GodMode ON");
+                animator.SetTrigger("enterGodMode");
+            } else {
+                Debug.Log("[PLAYER] GodMode OFF");
+                animator.ResetTrigger("enterGodMode");
+            }
+        }
     }
 
 
@@ -73,6 +89,12 @@ public class PlayerController : EntityController
             }
         }
         return  jumpPressed;
+    }
+
+    // Muy poco "seguro" - Check typos 
+    // animationTrigger hace refereferencia a un trigger del Animator 
+    public void triggerAnimation(string animationTrigger){
+        animator.SetTrigger(animationTrigger);
     }
 
     #region Enter States
