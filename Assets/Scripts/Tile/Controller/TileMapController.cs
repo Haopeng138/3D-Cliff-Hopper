@@ -15,6 +15,7 @@ public class TileMapController : MonoBehaviour
     Direction currentDirection = Direction.Z;
 
     private int centerOffset = 0;
+    public int centerOffsetMin = 2;
     public int centerOffsetMax = 4;
 
     public int currentHeight = 0;
@@ -43,10 +44,10 @@ public class TileMapController : MonoBehaviour
                 switch (currentDirection)
                 {
                     case Direction.X:
-                    if (Random.Range(0, -centerOffsetMax) > centerOffset) changeDirection();
+                        if (Random.Range(0, -centerOffsetMax -1) > centerOffset && centerOffset < -centerOffsetMin) changeDirection();
                     break;
                     case Direction.Z:
-                    if (Random.Range(0, centerOffsetMax) < centerOffset) changeDirection();
+                    if (Random.Range(0, centerOffsetMax +1) < centerOffset && centerOffset > centerOffsetMin) changeDirection();
                     break;                    
                 }
             }
