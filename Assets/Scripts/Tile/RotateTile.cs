@@ -3,15 +3,17 @@ using UnityEngine;
 
 public class RotateTile: BaseTile
 {
+    [SerializeField]
+    protected bool rotateDebug = false;
 
-    void Start(){
+    protected void Start(){
         base.Start();
         
     }
 
     public override bool onTap(EntityController entity){
         if (inArea(entity.transform.position)){
-            if (debug) Debug.Log("[ROTATE] Tapped");
+            if (rotateDebug) Debug.Log("[ROTATE] Tapped");
             entity.rotateEntity(transform.position, tileOrientation);
             return true;
         }
@@ -19,7 +21,7 @@ public class RotateTile: BaseTile
     }
 
     protected override void entityInArea(){
-        if (debug) Debug.Log("[ROTATE] Entity in area");
+        if (rotateDebug) Debug.Log("[ROTATE] Entity in area");
         // Spawnear particula para indicar poder hacer tap?
     }
 }
