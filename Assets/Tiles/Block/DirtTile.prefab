@@ -72,7 +72,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6580364898146624094}
   m_Layer: 0
-  m_Name: DirtBlock
+  m_Name: DirtTile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

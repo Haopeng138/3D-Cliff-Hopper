@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7568672516666150744}
   m_Layer: 0
-  m_Name: CliffTile
+  m_Name: GrassCliffTile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -10,19 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5ec83278d6e8a9648be21d3e4e6cd7fd, type: 3}
-  m_Name: HalfGrassTile
+  m_Name: ReverseGrassSlopeTile
   m_EditorClassIdentifier: 
-  tileGO: {fileID: 6723202678152132808, guid: 89373f0704402144797b856e6177c6d9, type: 3}
-  tileScaffoldGO: {fileID: 0}
+  tileGO: {fileID: 4468538933353364479, guid: d27e8cdde8c42274a889fd6417d8aa6e, type: 3}
+  tileScaffoldGO: {fileID: 5771916724899870948, guid: 341387973f2c0e140a06fcf4eee17740, type: 3}
   scaffoldHeight: 1
-  nextTileStride: {x: 0.5, y: 0, z: 0}
+  nextTileStride: {x: 0.5, y: 1, z: 0}
   localOffset: {x: 0, y: 0, z: 0}
   tileRotation: {x: 0, y: 0, z: 0, w: 1}
   canBeReplaced: 0
   tileWeights:
-  - tile: {fileID: 11400000}
-    weight: 75
-  - tile: {fileID: 11400000, guid: 1339dcb686464e140821f39f4dc0cca1, type: 2}
-    weight: 35
+  - tile: {fileID: 11400000, guid: 744f14911b1f3da449c36f84dde25df0, type: 2}
+    weight: 10
   - tile: {fileID: 11400000, guid: da548446742bfe74590bf32b83f77312, type: 2}
-    weight: 20
+    weight: 80
