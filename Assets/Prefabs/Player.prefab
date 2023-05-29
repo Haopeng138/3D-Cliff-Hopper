@@ -544,7 +544,7 @@ CharacterController:
   m_StepOffset: 0.3
   m_SkinWidth: 0.02
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0.8, z: 0}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &8944705997877358544
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -560,6 +560,7 @@ MonoBehaviour:
   currentTile: {fileID: 0}
   move: 1
   entityData: {fileID: 11400000, guid: 3181418da2da5ee41aa2412ec8f874f3, type: 2}
+  currentHealth: 0
   playerSkin: {fileID: 2100000, guid: cfca275426dce754aaeb7d89544cd7ae, type: 2}
   animator: {fileID: 0}
   playerAnimatorController: {fileID: 9100000, guid: f8ee8f41a50024b029252dcd4f991809, type: 2}
