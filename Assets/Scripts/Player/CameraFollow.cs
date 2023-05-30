@@ -7,13 +7,14 @@ public class CameraFollow : MonoBehaviour {
     [SerializeField]
     private Vector3 velocity = Vector3.zero;
     public float distance;
-    public float height;
+    [Tooltip("The angle between the camera and the ground in degrees")]
+    public float heightAngle = 45;
     public float smoothTime;
 
     void Start(){
-        transform.position = new Vector3(1,1,1);
+        transform.position = new Vector3(1, Mathf.Cos(Mathf.Deg2Rad * heightAngle), 1);
         transform.LookAt(Vector3.zero);
-        transform.position = target.position + new Vector3(1,1,1) * distance;
+        transform.position = target.position + Vector3.one *distance;
     }
 
     void Update() {
@@ -31,7 +32,7 @@ public class CameraFollow : MonoBehaviour {
         //float xz = (targetLocalPos.x + targetLocalPos.z)/2 * Mathf.Cos(Mathf.PI/4) + distance;
         float xz = (targetLocalPos.x > targetLocalPos.z ? targetLocalPos.x : targetLocalPos.z )  + distance; 
         //Mathf.Sqrt(distance * distance - Mathf.Pow(targetLocalPos.y - height ,2))/2 +(targetLocalPos.x + targetLocalPos.z/2) ;
-        transform.localPosition = Vector3.SmoothDamp(localPos, new Vector3(xz, targetLocalPos.y + distance, xz), ref velocity, smoothTime);
+        transform.position = Vector3.SmoothDamp(localPos, new Vector3(xz, targetLocalPos.y + distance, xz), ref velocity, smoothTime);
         //transform.LookAt(new Vector3(-1,-1,-1) + localPos, Vector3.up);
     }
     

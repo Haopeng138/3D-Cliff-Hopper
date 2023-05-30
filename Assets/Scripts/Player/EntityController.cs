@@ -7,7 +7,7 @@ public class EntityController : MonoBehaviour
     //public TileMapController tileMapController;
 
     public enum EntityState { 
-        IDLE, MOVING, SLOWED, JUMPING, FALLING, DEAD 
+        IDLE, MOVING, JUMPING, FALLING, DEAD 
         };
 
     protected EntityState state = EntityState.IDLE;    
@@ -23,20 +23,34 @@ public class EntityController : MonoBehaviour
     [Space]
     [field: SerializeField]
     public EntityData entityData;
+
+    [Header("Entity Data")]
     [SerializeField]
     protected int currentHealth;
+    [field: SerializeField]
+    public bool GodMode { get; protected set; }
+    [SerializeField]
     protected float moveSpeed = 4f;
+    [SerializeField]
+    protected float speedMultiplier = 1f;
+    [SerializeField]
     protected int jumpsLeft;
-
+    [SerializeField]
     protected Vector3 velocity = Vector3.zero;
+    [SerializeField]
     protected Vector2 directionVector = new Vector2(0, 0);
+    [SerializeField]
     protected Direction currentDirection = Direction.Z;
+    
     public Direction CurrentDirection {
         get => currentDirection; 
     }
 
+    [Space]
+    [SerializeField]
     protected bool debug = false;
 
+    private bool calledOnExit = true;
 
     protected void Start()
     {
@@ -47,15 +61,33 @@ public class EntityController : MonoBehaviour
     }
 
     void OnControllerColliderHit(ControllerColliderHit hit){
+        
         BaseTile tile = hit.gameObject.GetComponent<BaseTile>();
         if (tile != null){    
+            //Debug.Log("[ENTITY] Tile: " + tile.gameObject.name, tile);
             if (currentTile == null || 
             tile.GetInstanceID() != currentTile.GetInstanceID())
-                if (debug) Debug.Log("Calling onCollision: " + tile.name + ' ' + tile.GetType());
-                currentTile = tile;
-                //currentTile.onColission(this);
+                //if (currentTile != null) Debug.Log("CurrentTile: " + currentTile + " " + currentTile.GetInstanceID());
+                //Debug.Log("Tile: " + tile + " " + tile.GetInstanceID());
+
+                if (currentTile != tile){
+                    callTileOnExit();
+                    currentTile = tile;
+                    if (debug) Debug.Log("[Entity] Calling onColission: " + currentTile.name, currentTile);
+                    currentTile.onColission(this);
+                    calledOnExit = false;
+                }
         }
     }
+
+    void callTileOnExit(){
+        if (!calledOnExit && currentTile != null){
+            if (debug) Debug.Log("[ENTITY] Calling onExit: " + currentTile.name, currentTile);
+            currentTile.onExit(this);
+            calledOnExit = true;
+        }
+    }
+
     
 
 
@@ -69,11 +101,8 @@ public class EntityController : MonoBehaviour
             case EntityState.IDLE:
                 velocity = Vector3.zero;
             break;
-            case EntityState.SLOWED:
-                moveStateUpdate(0.9f);
-            break;
             case EntityState.MOVING:
-                moveStateUpdate(1);
+                moveStateUpdate();
             break;
             case EntityState.FALLING:
                 fallStateUpdate();
@@ -85,10 +114,10 @@ public class EntityController : MonoBehaviour
             break;
         }
 
-        if (entityData.GodMode){
+        if (GodMode){
             if (currentTile != null) currentTile.onTap(this);
         }
-
+        
         moveEnity();
     }
 
@@ -96,7 +125,7 @@ public class EntityController : MonoBehaviour
 
     public void TakeDamage(int damage) {
         
-        if (entityData.GodMode) return;
+        if (GodMode) return;
 
         if (debug) Debug.Log(gameObject.name + " - Taking Damage: " + damage);
         damage = Mathf.Abs(damage);
@@ -115,11 +144,15 @@ public class EntityController : MonoBehaviour
         }
     }
 
+    public void Kil(){
+        if (!GodMode) TakeDamage(entityData.Health);
+    }
+
 #endregion
 
     public void forceJump(float jumpForce) {
         
-        if (entityData.GodMode) return;
+        if (GodMode) return;
 
         Debug.Log("Forcing Jump");
         changeState(EntityState.JUMPING);
@@ -128,9 +161,15 @@ public class EntityController : MonoBehaviour
 
     public void forceJump() => forceJump(entityData.JumpSpeed);
 
+    // Apply a speed multiplier to the entity (Multiplies current speed multiplier)
+    // To "reset" the speed multiplier, call applySpeedMultiplier(1/multiplier)
+    public void applySpeedMultiplier(float multiplier){
+        if (!GodMode) speedMultiplier *= multiplier;
+    }
+
 #region StateUpdates
 
-    protected virtual void moveStateUpdate(float speedMultiplier){
+    protected virtual void moveStateUpdate(){
         velocity = new Vector3 (directionVector.x, entityData.Gravity * Time.deltaTime , directionVector.y) * moveSpeed * speedMultiplier;
     }
 
@@ -189,6 +228,7 @@ public class EntityController : MonoBehaviour
         bool isJumping = Jump();
         //Debug.Log("State: " + state + ' ' + "Grounded: " + isGrounded + ' ' + "Jumping: " + isJumping);
 
+        if (!isGrounded) callTileOnExit();
 
         switch(state){
             case EntityState.IDLE:
@@ -201,7 +241,6 @@ public class EntityController : MonoBehaviour
                     changeState(EntityState.FALLING);
                 }
             break;
-            case EntityState.SLOWED:
             case EntityState.MOVING:
                 if (isJumping){
                     changeState(EntityState.JUMPING);
@@ -270,9 +309,6 @@ public class EntityController : MonoBehaviour
                 }
                 enterMovingState();
             break;
-            case EntityState.SLOWED:
-                enterGroundedState();
-            break;
             case EntityState.FALLING:
                 enterFallingState();
             break;
@@ -296,10 +332,6 @@ public class EntityController : MonoBehaviour
     virtual protected void enterMovingState(){
         if (debug) Debug.Log("[ENT] Entering MOVING");
     }
-
-    virtual protected void enterGroundedState(){
-        if (debug) Debug.Log("[ENT] Entering GROUNDED");
-    } 
     virtual protected void enterJumpingState(){
         if (debug) Debug.Log("[ENT] Entering JUMPING");
     }
@@ -321,9 +353,6 @@ public class EntityController : MonoBehaviour
             case EntityState.MOVING:
                exitMovingState();
             break;
-            case EntityState.SLOWED:
-                exitGroundedState();
-            break;
             case EntityState.FALLING:
                 exitFallingState();
             break;
@@ -343,9 +372,6 @@ public class EntityController : MonoBehaviour
     virtual protected void exitMovingState(){
         if (debug) Debug.Log("[ENT] Leaving MOVING");
     } 
-    virtual protected void exitGroundedState(){
-        if (debug) Debug.Log("[ENT] Leaving GROUNDED");
-    }
     virtual protected void exitJumpingState(){
         if (debug) Debug.Log("[ENT] Leaving JUMPING");
     }
