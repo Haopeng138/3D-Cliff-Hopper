@@ -575,6 +575,7 @@ MonoBehaviour:
   jumpParameter: enterJumping
   fallParameter: enterFalling
   deadParameter: '-'
+  timeScale: 1
 --- !u!1 &8944705996859510091
 GameObject:
   m_ObjectHideFlags: 0

@@ -1237,10 +1237,6 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8944705997877358544, guid: 9cb54ac0e652e544e99f29b8e270d5d3, type: 3}
-      propertyPath: timeScale
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8944705997877358544, guid: 9cb54ac0e652e544e99f29b8e270d5d3, type: 3}
       propertyPath: fallMultiplier
       value: 1
       objectReference: {fileID: 0}
