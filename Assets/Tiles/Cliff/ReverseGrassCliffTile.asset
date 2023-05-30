@@ -12,13 +12,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ec83278d6e8a9648be21d3e4e6cd7fd, type: 3}
   m_Name: ReverseGrassCliffTile
   m_EditorClassIdentifier: 
-  tileGO: {fileID: 7080365742802441698, guid: 750f11213422a9f46870b8dea53e947c, type: 3}
-  tileScaffoldGO: {fileID: 0}
+  tilePrefab: {fileID: 7080365742802441698, guid: 750f11213422a9f46870b8dea53e947c, type: 3}
+  tileScaffold: {fileID: 0}
   scaffoldHeight: 1
-  nextTileStride: {x: 0.5, y: 0, z: 0}
+  nextTileStride: {x: 0.5, y: 0}
   localOffset: {x: 0, y: 0, z: 0}
   tileRotation: {x: 0, y: 1, z: 0, w: -0.00000004371139}
-  canBeReplaced: 0
+  isTrap: 0
   tileWeights:
   - tile: {fileID: 11400000, guid: da548446742bfe74590bf32b83f77312, type: 2}
-    weight: 1
+    weight: 25
+    canBeRotate: 1
+  - tile: {fileID: 11400000, guid: 9aa3d42a24ffd264d94246ea27ab42b2, type: 2}
+    weight: 5
+    canBeRotate: 1
+  - tile: {fileID: 11400000, guid: bb01143cb8ffad6479c12427fd113510, type: 2}
+    weight: 5
+    canBeRotate: 1
+  - tile: {fileID: 11400000, guid: 2a4623a56f82da447931c7f67e9de81d, type: 2}
+    weight: 5
+    canBeRotate: 1
+  - tile: {fileID: 11400000, guid: 670555e8448f57749826a3b58e738e69, type: 2}
+    weight: 5
+    canBeRotate: 1
+  - tile: {fileID: 11400000, guid: 1339dcb686464e140821f39f4dc0cca1, type: 2}
+    weight: 5
+    canBeRotate: 1

@@ -12,17 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ec83278d6e8a9648be21d3e4e6cd7fd, type: 3}
   m_Name: GrassHalfTile
   m_EditorClassIdentifier: 
-  tileGO: {fileID: 6723202678152132808, guid: 89373f0704402144797b856e6177c6d9, type: 3}
-  tileScaffoldGO: {fileID: 0}
+  tilePrefab: {fileID: 6723202678152132808, guid: 89373f0704402144797b856e6177c6d9, type: 3}
+  tileScaffold: {fileID: 0}
   scaffoldHeight: 1
-  nextTileStride: {x: 0.5, y: 0, z: 0}
+  nextTileStride: {x: 0.5, y: 0}
   localOffset: {x: 0, y: 0, z: 0}
   tileRotation: {x: 0, y: 0, z: 0, w: 1}
-  canBeReplaced: 0
+  isTrap: 0
   tileWeights:
   - tile: {fileID: 11400000}
     weight: 75
+    canBeRotate: 0
   - tile: {fileID: 11400000, guid: 1339dcb686464e140821f39f4dc0cca1, type: 2}
     weight: 35
+    canBeRotate: 0
   - tile: {fileID: 11400000, guid: da548446742bfe74590bf32b83f77312, type: 2}
     weight: 20
+    canBeRotate: 0

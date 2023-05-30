@@ -141,11 +141,11 @@ MonoBehaviour:
   tileOrientation: 0
   area: 0.25
   offset: 0
-  baseDebug: 1
+  baseDebug: 0
   triggerName: trigger
-  triggerDebug: 1
+  triggerDebug: 0
   collider: {fileID: 2667887482334593502}
-  emptyDebug: 1
+  emptyDebug: 0
 --- !u!1 &7771391169930042396
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,19 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5ec83278d6e8a9648be21d3e4e6cd7fd, type: 3}
-  m_Name: SpikeTile
+  m_Name: SlowTile
   m_EditorClassIdentifier: 
-  tilePrefab: {fileID: 3967119022395896974, guid: f894e0dc973b660489dc7d0e7adcef03, type: 3}
+  tilePrefab: {fileID: 713849170783315976, guid: ece6d9e390c533b41a9a870efbdb95fa, type: 3}
   tileScaffold: {fileID: 5771916724899870948, guid: 341387973f2c0e140a06fcf4eee17740, type: 3}
   scaffoldHeight: 1
   nextTileStride: {x: 0.5, y: 0}
   localOffset: {x: 0, y: 0, z: 0}
   tileRotation: {x: 0, y: 0, z: 0, w: 1}
-  isTrap: 1
+  isTrap: 0
   tileWeights:
-  - tile: {fileID: 11400000, guid: 9aa3d42a24ffd264d94246ea27ab42b2, type: 2}
+  - tile: {fileID: 11400000}
+    weight: 50
+    canBeRotate: 1
+  - tile: {fileID: 11400000, guid: da548446742bfe74590bf32b83f77312, type: 2}
     weight: 25
     canBeRotate: 1
-  - tile: {fileID: 11400000}
-    weight: 5
-    canBeRotate: 1
+  - tile: {fileID: 11400000, guid: 2a4623a56f82da447931c7f67e9de81d, type: 2}
+    weight: 25
+    canBeRotate: 0

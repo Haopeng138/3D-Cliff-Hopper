@@ -281,7 +281,7 @@ GameObject:
   m_Component:
   - component: {fileID: 167218805380575982}
   - component: {fileID: 230124736299868346}
-  - component: {fileID: 5359450158187671720}
+  - component: {fileID: 5198433083981839472}
   m_Layer: 6
   m_Name: collider
   m_TagString: Untagged
@@ -318,7 +318,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0.5, z: 0}
---- !u!114 &5359450158187671720
+--- !u!114 &5198433083981839472
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -327,14 +327,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 7113112789747756135}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b104034d246230948b863c0ce0dcbdfa, type: 3}
+  m_Script: {fileID: 11500000, guid: 0e66704fbb569e848be0e7e316d06250, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  baseDebug: 0
   tileMapController: {fileID: 0}
   tileOrientation: 0
-  area: 1
   offset: 0
-  baseDebug: 0
+  area: 0.25
+  overrideTap: 1
   triggerName: trigger
+  tileAnimationName: play
+  triggerOnce: 1
+  playerAnimationName: stumble
   triggerDebug: 0
-  animationName: stumble
+  damage: 0
+  damageDebug: 0
