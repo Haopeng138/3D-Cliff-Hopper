@@ -11,14 +11,11 @@ public class ShowPanelButton : MonoBehaviour
 
     public void Start()
     {
-      
         _panelManager = PanelManager.Instance;
-    
     }
 
     public void DoShowPanel()
     {
-       Debug.Log(_panelManager);
         _panelManager.ShowPanel(PanelId, Behaviour);
     }
 

@@ -396,13 +396,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56ddc6f8a25a1d54abe4810f66ef3444, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  debug: 0
   maxTiles: 250
-  tileLocation: {x: 0, y: 0, z: 0}
+  tileSpawnLocation: {x: 0, y: 0, z: 0}
   currentTile: {fileID: 11400000, guid: 9aa3d42a24ffd264d94246ea27ab42b2, type: 2}
   rotateTile: {fileID: 11400000, guid: 981c5cfa157fc0b499856434a65208e4, type: 2}
+  defaultTile: {fileID: 0}
   centerOffsetMin: 2
   centerOffsetMax: 5
-  currentHeight: 0
   maxHeight: 10
   minHeight: -3
 --- !u!1 &325029532
@@ -505,7 +506,7 @@ MonoBehaviour:
   target: {fileID: 1662821321}
   velocity: {x: 0, y: 0, z: 0}
   distance: 5
-  height: 10
+  heightAngle: 45
   smoothTime: 0.5
 --- !u!1 &440474737
 GameObject:
@@ -6457,6 +6458,53 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8433777908578165461, guid: 63a914ae4ad65e34288e351356e04e5c, type: 3}
   m_PrefabInstance: {fileID: 1618032053}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1623225048
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1623225050}
+  - component: {fileID: 1623225049}
+  m_Layer: 0
+  m_Name: SceneStateManagers
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1623225049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1623225048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 761fc8323f4734eb9833c0ec68b5f9b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneState: 0
+  PanelId: MainMenu
+  Behaviour: 0
+--- !u!4 &1623225050
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1623225048}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 325.625, y: 164.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1662821321 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8944705996859216233, guid: 9cb54ac0e652e544e99f29b8e270d5d3, type: 3}
@@ -6541,11 +6589,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 570642539c11fbc47b9447c6fad7c32a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  baseDebug: 0
   tileMapController: {fileID: 0}
   tileOrientation: 0
-  area: 0.25
   offset: 0
-  baseDebug: 0
+  area: 0.25
+  overrideTap: 0
 --- !u!1001 &1862170559
 PrefabInstance:
   m_ObjectHideFlags: 0

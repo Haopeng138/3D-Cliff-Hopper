@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
-using UnityEngine.SceneManagement;
+
 
 public class PlayerController : EntityController
 {
@@ -43,10 +43,6 @@ public class PlayerController : EntityController
         base.Update();
         animator.SetFloat("movementSpeed", ((velocity.x > velocity.z) ? velocity.x : velocity.z) / moveSpeed);
 
-        if (Input.GetKeyDown(KeyCode.R)) {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-            // Load main menu
-        }
 
         if (Input.GetKeyDown(KeyCode.Escape)) {
             timeScale = (timeScale == 0f) ? 1f : 0f;
