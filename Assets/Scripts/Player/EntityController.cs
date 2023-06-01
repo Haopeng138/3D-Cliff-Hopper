@@ -52,12 +52,17 @@ public class EntityController : MonoBehaviour
 
     private bool calledOnExit = true;
 
+    public int score = 0;
     protected void Start()
     {
         moveSpeed = entityData.MoveSpeed;
         jumpsLeft = entityData.MaxJumps;
         currentHealth = entityData.Health;
         controller = GetComponent<CharacterController>();
+    }
+
+    public void addScore(int score=1){
+        this.score += score;
     }
 
     void OnControllerColliderHit(ControllerColliderHit hit){
@@ -214,6 +219,7 @@ public class EntityController : MonoBehaviour
             break;
         }
         var point = new Vector3(rotationPoint.x, transform.position.y, rotationPoint.z);
+        this.addScore(1);
         controller.Move(point - transform.position);
     }
 

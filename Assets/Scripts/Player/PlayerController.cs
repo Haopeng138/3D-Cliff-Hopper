@@ -23,6 +23,8 @@ public class PlayerController : EntityController
     private string deadParameter = "-";
     public float timeScale = 1f;
 
+    public int highScore;
+
     void Start()
     {
         
@@ -35,6 +37,8 @@ public class PlayerController : EntityController
                 render.material = entityData.Skin;
             }
         }
+
+        highScore = PlayerPrefs.GetInt("highScore", 0);
     }
 
     void Update(){
@@ -125,5 +129,21 @@ public class PlayerController : EntityController
     override protected void exitDeadState(){
         animator.ResetTrigger(deadParameter);
     }
+    #endregion
+
+    #region Score and HighScore
+    public void UpdateHighScore(int score)
+    {
+        if (score > this.highScore)
+        {
+            this.highScore = score;
+            PlayerPrefs.SetInt("highScore", this.highScore);
+        }
+    }
+    public int GetHighScore()
+    {
+        return highScore;
+    }
+
     #endregion
 }
