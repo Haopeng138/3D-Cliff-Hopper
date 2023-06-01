@@ -50,6 +50,7 @@ public class PanelManager : Singleton<PanelManager>
     public void HideLastPanel(){
         if (AnyPanelShowing()){
             var lastPanel = GetLastPanel();
+            Debug.Log("All panels: " + _listInstances.Count);
             _listInstances.Remove(lastPanel);
 
             _objectPool.PoolObject(lastPanel.PanelInstance); 

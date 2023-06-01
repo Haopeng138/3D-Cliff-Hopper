@@ -9,7 +9,7 @@ public class SceneStateManager : Singleton<SceneStateManager>
     public SceneState sceneState = SceneState.Playing;
 
     void Awake(){
-        DontDestroyOnLoad(this.gameObject);
+      
         DontDestroyOnLoad(GameObject.Find("AudioManager"));
         DontDestroyOnLoad(GameObject.Find("PopUpsManagers"));
 
