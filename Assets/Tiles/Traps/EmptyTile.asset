@@ -12,13 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ec83278d6e8a9648be21d3e4e6cd7fd, type: 3}
   m_Name: EmptyTile
   m_EditorClassIdentifier: 
-  tileGO: {fileID: 1586326998737134658, guid: 658fa8a61a15911489a5d3515ba647ff, type: 3}
-  tileScaffoldGO: {fileID: 0}
+  tilePrefab: {fileID: 1586326998737134658, guid: 658fa8a61a15911489a5d3515ba647ff, type: 3}
+  tileScaffold: {fileID: 0}
   scaffoldHeight: 1
-  nextTileStride: {x: 0.5, y: 0, z: 0}
+  nextTileStride: {x: 0.5, y: 0}
   localOffset: {x: 0, y: 0, z: 0}
   tileRotation: {x: 0, y: 0, z: 0, w: 1}
-  canBeReplaced: 0
+  isTrap: 1
   tileWeights:
   - tile: {fileID: 11400000, guid: df8779bb22251ab49a0233ae78c44a28, type: 2}
     weight: 20
+    canBeRotate: 0

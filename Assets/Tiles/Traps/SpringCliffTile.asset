@@ -10,15 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5ec83278d6e8a9648be21d3e4e6cd7fd, type: 3}
-  m_Name: ReverseGrassCliffTile
+  m_Name: SpringCliffTile
   m_EditorClassIdentifier: 
-  tileGO: {fileID: 7080365742802441698, guid: 750f11213422a9f46870b8dea53e947c, type: 3}
-  tileScaffoldGO: {fileID: 0}
+  tilePrefab: {fileID: 1288399742872092922, guid: 838cf40e2ae7caa47adcfcdd9bad0a18, type: 3}
+  tileScaffold: {fileID: 0}
   scaffoldHeight: 1
-  nextTileStride: {x: 0.5, y: 0, z: 0}
+  nextTileStride: {x: 0.5, y: 0}
   localOffset: {x: 0, y: 0, z: 0}
-  tileRotation: {x: 0, y: 1, z: 0, w: -0.00000004371139}
-  canBeReplaced: 0
+  tileRotation: {x: 0, y: 0, z: 0, w: 1}
+  isTrap: 1
   tileWeights:
-  - tile: {fileID: 11400000, guid: da548446742bfe74590bf32b83f77312, type: 2}
+  - tile: {fileID: 11400000, guid: b2d333840155c0840ab406f1f5d486e7, type: 2}
     weight: 1
+    canBeRotate: 0

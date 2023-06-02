@@ -10,17 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5ec83278d6e8a9648be21d3e4e6cd7fd, type: 3}
-  m_Name: NoTrapGrass
+  m_Name: BarrierTile
   m_EditorClassIdentifier: 
-  tileGO: {fileID: 9097584601557563503, guid: 63a914ae4ad65e34288e351356e04e5c, type: 3}
-  tileScaffoldGO: {fileID: 5771916724899870948, guid: 341387973f2c0e140a06fcf4eee17740, type: 3}
+  tilePrefab: {fileID: 3636430965955443752, guid: 5cfede8a6b558d14f86c7f204a00fabe, type: 3}
+  tileScaffold: {fileID: 5771916724899870948, guid: 341387973f2c0e140a06fcf4eee17740, type: 3}
   scaffoldHeight: 1
-  nextTileStride: {x: 0.5, y: 0, z: 0}
+  nextTileStride: {x: 0.5, y: 0}
   localOffset: {x: 0, y: 0, z: 0}
   tileRotation: {x: 0, y: 0, z: 0, w: 1}
-  canBeReplaced: 1
+  isTrap: 0
   tileWeights:
-  - tile: {fileID: 11400000}
-    weight: 5
   - tile: {fileID: 11400000, guid: da548446742bfe74590bf32b83f77312, type: 2}
     weight: 10
+    canBeRotate: 1
+  - tile: {fileID: 11400000, guid: 744f14911b1f3da449c36f84dde25df0, type: 2}
+    weight: 10
+    canBeRotate: 1
+  - tile: {fileID: 11400000, guid: 1dadcf539e0562f4cba3803640ba99a3, type: 2}
+    weight: 10
+    canBeRotate: 1

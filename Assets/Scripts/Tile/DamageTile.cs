@@ -9,10 +9,8 @@ public class DamageTile : TriggerTile {
 
 
     public override void onTriggerEnter(EntityController entity) {
-        if (damageDebug) Debug.Log("[DAMAGETILE] Trigger entered");
-        if (animator != null) {
-            animator.SetTrigger("play");
-        }
+        base.onTriggerEnter(entity);
+        if (damageDebug) Debug.Log("[DAMAGETILE] Trigger entered", this);
         entity.TakeDamage(damage);
     }
 

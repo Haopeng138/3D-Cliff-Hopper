@@ -13,8 +13,9 @@ public class RotateTile: BaseTile
 
     public override bool onTap(EntityController entity){
         if (inArea(entity.transform.position)){
-            if (rotateDebug) Debug.Log("[ROTATE] Tapped");
+            if (rotateDebug) Debug.Log("[ROTATE] Tapped", entity);
             entity.rotateEntity(transform.position, tileOrientation);
+            //entity.addScore(1);
             return true;
         }
         return false;

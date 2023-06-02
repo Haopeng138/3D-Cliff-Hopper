@@ -19,5 +19,6 @@ public class EntityData : ScriptableObject
     [field: SerializeField]
     public float JumpSpeed { get; private set; }
     [field: SerializeField]
-    public bool GodMode { get; set; }
+    public Material Skin;
+    //public bool GodMode { get; set; }
 }

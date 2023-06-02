@@ -18,14 +18,14 @@ public class EmptyTile: TriggerTile
     }
 
     public override void onTriggerEnter(EntityController entity){
-        if (emptyDebug) Debug.Log("[EMPTY] Trigger entered");
+        if (emptyDebug) Debug.Log("[EMPTY] Trigger entered", this);
         
-        collider.enabled = entity.entityData.GodMode;
+        collider.enabled = entity.GodMode;
 
     }
 
     public override void onTriggerExit(EntityController entity){
-        if (emptyDebug) Debug.Log("[EMPTY] Trigger exited");
+        if (emptyDebug) Debug.Log("[EMPTY] Trigger exited", this);
         //collider.enabled = entity.entityData.GodMode;
 
     }

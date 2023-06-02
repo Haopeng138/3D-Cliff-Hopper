@@ -1,39 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 using UnityEngine.SceneManagement;
 
 public class PlayerController : EntityController
 {
-/*
-    // Hotizontal and Vertical move
-    public float speed;
-    private enum PlayerDirection {Stop,Forward,Right};
-    private PlayerDirection playerDirection;
-    private Vector3 targetPosition;
-
-    private float horizontalMove;
-    private float verticalMove;
-    public CharacterController player;  
-    private Vector3 playerMovement;
-    private Vector3 playerRotation;
-
-    // Jump and Gravity
-    Rigidbody rg;
-    private int jumpsLeft;
-    public float jumpForce = 15.0f;
-    bool isJumping=false;
-    public int maxJumps = 2;
-    private int jumpsLeft;
-*/
-    public Material playerSkin;
-
-    [SerializeField]
     private Animator animator;
     [SerializeField]
     private RuntimeAnimatorController playerAnimatorController;
 
-    [Tooltip("Animator parameters")]
+    [Header("Animator parameters")]
     [SerializeField]
     private string idleParameter = "enterIdle";
     [SerializeField]
@@ -44,31 +21,40 @@ public class PlayerController : EntityController
     private string fallParameter = "enterFalling";
     [SerializeField]
     private string deadParameter = "-";
+    public float timeScale = 1f;
 
     void Start()
     {
+        
         base.Start();
         animator = GetComponent<Animator>();
         animator.runtimeAnimatorController = playerAnimatorController;
-        if (playerSkin != null){
+        if (entityData.Skin != null){
             var renders = GetComponentsInChildren<SkinnedMeshRenderer>();
             foreach (var render in renders){
-                render.material = playerSkin;
+                render.material = entityData.Skin;
             }
         }
     }
 
     void Update(){
+        Time.timeScale = timeScale;
+
         base.Update();
         animator.SetFloat("movementSpeed", ((velocity.x > velocity.z) ? velocity.x : velocity.z) / moveSpeed);
 
         if (Input.GetKeyDown(KeyCode.R)) {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            // Load main menu
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape)) {
+            timeScale = (timeScale == 0f) ? 1f : 0f;
         }
 
         if (Input.GetKeyDown(KeyCode.G)) {
-            entityData.GodMode = !entityData.GodMode;
-            if (entityData.GodMode) {
+            GodMode = !GodMode;
+            if (GodMode) {
                 Debug.Log("[PLAYER] GodMode ON");
                 animator.SetTrigger("enterGodMode");
             } else {
@@ -93,8 +79,12 @@ public class PlayerController : EntityController
 
     // Muy poco "seguro" - Check typos 
     // animationTrigger hace refereferencia a un trigger del Animator 
-    public void triggerAnimation(string animationTrigger){
+    public void setAnimationTrigger(string animationTrigger){
         animator.SetTrigger(animationTrigger);
+    }
+
+    public void resetAnimationTrigger(string animationTrigger){
+        animator.ResetTrigger(animationTrigger);
     }
 
     #region Enter States
@@ -112,6 +102,7 @@ public class PlayerController : EntityController
     }
 
     override protected void enterFallingState(){
+        animator.ResetTrigger(jumpParameter);
         animator.SetTrigger(fallParameter);
     }
 
