@@ -15,6 +15,7 @@ public class CollectCoin : MonoBehaviour
         if(Col.gameObject.tag == "Coin"){
             coin++;
             ScoreManager.Instance.addScore(5);
+            AudioManager.instance.PlaySFX("CollectCoin");
             Destroy(Col.gameObject);
         }
     }

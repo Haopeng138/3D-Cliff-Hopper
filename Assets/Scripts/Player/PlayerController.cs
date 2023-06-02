@@ -96,6 +96,7 @@ public class PlayerController : EntityController
 
     override protected void enterJumpingState(){
         animator.SetTrigger(jumpParameter);
+        AudioManager.instance.PlaySFX("Jump");
     }
 
     override protected void enterFallingState(){
