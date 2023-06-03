@@ -10,6 +10,8 @@ public class TileMapController : MonoBehaviour
     public bool debug = false;
     public int maxTiles;
     public Vector3 tileSpawnLocation;
+    [Header("Water")]
+    public GameObject water;
 
     [Header("Tile Types")]
     public BaseTileSO currentTile;
@@ -39,11 +41,23 @@ public class TileMapController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     { 
-        Vector3 tileSpawnLocation = transform.position;
+        if (water == null) water = GameObject.Find("WaterPosition");
+        tileSpawnLocation = transform.position;
         centerOffset = (int)(tileSpawnLocation.z - tileSpawnLocation.x);
         currentDirection = centerOffset > 0 ? Direction.X : Direction.Z;
                 
-        CreateMap();        
+        CreateMap();
+
+        print("Water");
+        print(tileSpawnLocation);
+        float xz = Mathf.Max(Mathf.Abs(tileSpawnLocation.x), Mathf.Abs(tileSpawnLocation.z))/2;
+        Vector3 waterPosition = new Vector3(xz, minHeight, xz);
+        print (waterPosition);
+        water.transform.position = waterPosition;
+        water.transform.localScale = new Vector3(xz, 1, xz);
+        print (water.transform.position);
+        print(water.transform.localScale);
+        water.SetActive(true);
     }
 
 
@@ -64,6 +78,14 @@ public class TileMapController : MonoBehaviour
             nextTile();    
             centerOffset += (int)currentDirection;
             spawnCurrentTile();
+        }
+
+        if (debug) {
+            Debug.Log("FINISHED CREATE MAP");
+            Debug.Log("Spawn Location: " + tileSpawnLocation);
+            Debug.Log("Tile: " + currentTile);
+            Debug.Log("Direction: " + currentDirection);
+            Debug.Log("CenterOffset: " + centerOffset);
         }
     }
 
