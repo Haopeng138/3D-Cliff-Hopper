@@ -10,8 +10,6 @@ public class ObjectPool : Singleton<ObjectPool>
     private List<GameObject> _pooledObjects = new List<GameObject>();
 
     public GameObject GetObjectFromPool(string objectName){
-
-        Debug.Log("GetObjectFromPool " + PrefabsForPool.Count);
          var instance = _pooledObjects.FirstOrDefault(obj => obj.name == objectName);
       
         if (instance != null){

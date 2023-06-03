@@ -52,6 +52,7 @@ public class EntityController : MonoBehaviour
 
     private bool calledOnExit = true;
 
+
     protected void Start()
     {
         moveSpeed = entityData.MoveSpeed;
@@ -60,6 +61,7 @@ public class EntityController : MonoBehaviour
         controller = GetComponent<CharacterController>();
     }
 
+  
     void OnControllerColliderHit(ControllerColliderHit hit){
         
         BaseTile tile = hit.gameObject.GetComponent<BaseTile>();
@@ -214,6 +216,7 @@ public class EntityController : MonoBehaviour
             break;
         }
         var point = new Vector3(rotationPoint.x, transform.position.y, rotationPoint.z);
+        ScoreManager.Instance.addScore(1);
         controller.Move(point - transform.position);
     }
 
