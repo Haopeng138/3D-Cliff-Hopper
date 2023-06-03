@@ -477,6 +477,7 @@ GameObject:
   - component: {fileID: 8944705996866944665}
   - component: {fileID: 8944705997877358543}
   - component: {fileID: 8944705997877358544}
+  - component: {fileID: 5585482841018911339}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -566,9 +567,10 @@ MonoBehaviour:
   speedMultiplier: 1
   jumpsLeft: 0
   velocity: {x: 0, y: 0, z: 0}
-  directionVector: {x: 0, y: 0}
+  directionVector: {x: 0, y: 1}
   currentDirection: 1
   debug: 0
+  trackScore: 1
   playerAnimatorController: {fileID: 9100000, guid: f8ee8f41a50024b029252dcd4f991809, type: 2}
   idleParameter: enterIdle
   moveParameter: enterMoving
@@ -576,6 +578,19 @@ MonoBehaviour:
   fallParameter: enterFalling
   deadParameter: '-'
   timeScale: 1
+--- !u!114 &5585482841018911339
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8944705996859510089}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10253fcca6eb54e8392f1fc9d702a56a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coin: 0
 --- !u!1 &8944705996859510091
 GameObject:
   m_ObjectHideFlags: 0
