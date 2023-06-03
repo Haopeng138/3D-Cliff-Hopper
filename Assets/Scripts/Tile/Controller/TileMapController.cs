@@ -17,6 +17,9 @@ public class TileMapController : MonoBehaviour
     public BaseTileSO currentTile;
     public BaseTileSO rotateTile;
     public BaseTileSO defaultTile;
+    [Header("Coin")]
+    public GameObject coin;
+    public int coinSpawnTileCount = 10;
 
     // Direction of the next tile
     Direction currentDirection = Direction.Z;
@@ -63,30 +66,17 @@ public class TileMapController : MonoBehaviour
 
     void CreateMap(){
         
-        if (debug) {
-            Debug.Log("CREATE MAP");
-            Debug.Log("Initial Spawn Location: " + tileSpawnLocation);
-            Debug.Log("Initial Tile: " + currentTile);
-            Debug.Log("Initial Direction: " + currentDirection);
-            Debug.Log("Initial CenterOffset: " + centerOffset);
-        }
         // Spawn first tile
         spawnCurrentTile();
-
         for (int i = 0; i < maxTiles; i++)
         {
             nextTile();    
             centerOffset += (int)currentDirection;
             spawnCurrentTile();
+
+            if (i % coinSpawnTileCount == 9) spawnCoint();
         }
 
-        if (debug) {
-            Debug.Log("FINISHED CREATE MAP");
-            Debug.Log("Spawn Location: " + tileSpawnLocation);
-            Debug.Log("Tile: " + currentTile);
-            Debug.Log("Direction: " + currentDirection);
-            Debug.Log("CenterOffset: " + centerOffset);
-        }
     }
 
     void nextTile(){
@@ -104,6 +94,12 @@ public class TileMapController : MonoBehaviour
         newTile.offset = centerOffset;
         newTile.gameObject.transform.parent.transform.parent = gameObject.transform;
         return newTile;
+    }
+
+    void spawnCoint(){
+        Vector3 coinPosition = tileSpawnLocation;
+        coinPosition.y += 1.5f;
+        Instantiate(coin, coinPosition, Quaternion.identity);
     }
 
     void addStride(bool height){
