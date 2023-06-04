@@ -6,6 +6,7 @@ public class HidePanelButton : MonoBehaviour
 {
     // Cache the PanelManager instance
     private PanelManager _panelManager;
+    
 
     public void Start()
     {

@@ -776,6 +776,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 761fc8323f4734eb9833c0ec68b5f9b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sceneState: 0
   PanelId: MainMenu
   Behaviour: 0
 --- !u!1 &723135995
@@ -6145,6 +6146,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2018942169464221403, guid: f72519045d70eb741b8292658353dc1d, type: 3}
+      propertyPath: PanelId
+      value: MainMenu
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f72519045d70eb741b8292658353dc1d, type: 3}
 --- !u!1 &1381891450
@@ -6178,6 +6183,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scoreText: {fileID: 416075064}
   highScoreText: {fileID: 2047171}
+  score: 0
+  highScore: 0
+  taps: 0
+  coins: 0
 --- !u!4 &1381891452
 Transform:
   m_ObjectHideFlags: 0
@@ -6619,6 +6628,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 761fc8323f4734eb9833c0ec68b5f9b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sceneState: 0
   PanelId: MainMenu
   Behaviour: 0
 --- !u!4 &1623225050
@@ -6654,7 +6664,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10253fcca6eb54e8392f1fc9d702a56a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coin: 0
 --- !u!1001 &1693571163
 PrefabInstance:
   m_ObjectHideFlags: 0

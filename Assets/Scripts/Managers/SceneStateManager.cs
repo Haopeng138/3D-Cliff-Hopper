@@ -39,6 +39,10 @@ public class SceneStateManager : Singleton<SceneStateManager>
         _panelManager.HideLastPanel();
     }
 
+    public void showScore(){
+        _panelManager.ShowPanel("Score", Behaviour);
+    }
+
 
     void Update(){
         
@@ -89,8 +93,7 @@ public class SceneStateManager : Singleton<SceneStateManager>
 
     public void GameOver(){
         sceneState = SceneState.GAMEOVER;
-        Time.timeScale = 0;
-        DoShowPanel();
+        showScore();
     }
 
     public void RestartGame(){

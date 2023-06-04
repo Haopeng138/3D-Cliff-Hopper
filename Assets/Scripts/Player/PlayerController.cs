@@ -110,7 +110,7 @@ public class PlayerController : EntityController
         animator.SetTrigger(deadParameter);
         AudioManager.instance.PlaySFX("Lose");
         ScoreManager.Instance.UpdateHighScore();
-        //Debug.Log("Scene : " + SceneStateManager.sceneState);
+        SceneStateManager.Instance.GameOver();
     }
 
     #endregion
