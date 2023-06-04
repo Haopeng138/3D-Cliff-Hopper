@@ -5428,6 +5428,7 @@ MonoBehaviour:
   footstepSound: {fileID: 0}
   tapSound: {fileID: 0}
   footstepParticleMaterial: {fileID: 0}
+  nextTileSet: 0
 --- !u!1001 &1862170559
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6079,10 +6080,6 @@ PrefabInstance:
       propertyPath: m_CollisionDetection
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3824233899744379509, guid: 9cb54ac0e652e544e99f29b8e270d5d3, type: 3}
-      propertyPath: m_IsKinematic
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6180746783055194330, guid: 9cb54ac0e652e544e99f29b8e270d5d3, type: 3}
       propertyPath: m_RootOrder
       value: 8
@@ -6094,26 +6091,6 @@ PrefabInstance:
     - target: {fileID: 6610286755071852196, guid: 9cb54ac0e652e544e99f29b8e270d5d3, type: 3}
       propertyPath: m_Center.y
       value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8944705996859216209, guid: 9cb54ac0e652e544e99f29b8e270d5d3, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.56
-      objectReference: {fileID: 0}
-    - target: {fileID: 8944705996859216209, guid: 9cb54ac0e652e544e99f29b8e270d5d3, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 8944705996859216209, guid: 9cb54ac0e652e544e99f29b8e270d5d3, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8944705996859216209, guid: 9cb54ac0e652e544e99f29b8e270d5d3, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8944705996859216209, guid: 9cb54ac0e652e544e99f29b8e270d5d3, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 8944705996859216209, guid: 9cb54ac0e652e544e99f29b8e270d5d3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
