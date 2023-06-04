@@ -28,7 +28,8 @@ public class PlayerController : EntityController
     private string fallParameter = "enterFalling";
     [SerializeField]
     private string deadParameter = "-";
-    public float timeScale = 1f;
+    //TODO: Remove this
+    //public float timeScale = 1f;
 
     private GameObject ragdollRoot;
 
@@ -83,15 +84,16 @@ public class PlayerController : EntityController
     }
 
     void Update(){
-        Time.timeScale = timeScale;
+        // TDOO: Remove this
+        // Time.timeScale = timeScale;
 
         base.Update();
         animator.SetFloat("movementSpeed", ((velocity.x > velocity.z) ? velocity.x : velocity.z) / moveSpeed);
 
-
-        if (Input.GetKeyDown(KeyCode.Escape)) {
-            timeScale = (timeScale == 0f) ? 1f : 0f;
-        }
+        //TODO: Remove this
+        // if (Input.GetKeyDown(KeyCode.Escape)) {
+        //     timeScale = (timeScale == 0f) ? 1f : 0f;
+        // }
 
         if (Input.GetKeyDown(KeyCode.G)) {
             GodMode = !GodMode;
@@ -168,8 +170,13 @@ public class PlayerController : EntityController
 
     override protected void enterDeadState(){
         //animator.SetTrigger(deadParameter);
+        AudioManager.instance.PlaySFX("Lose");
+        ScoreManager.Instance.UpdateHighScore();
+        SceneStateManager.Instance.GameOver();
+        
         animator.enabled = false;
         controller.enabled = false;
+
     }
 
 
