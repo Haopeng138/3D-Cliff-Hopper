@@ -29,8 +29,7 @@ public class BaseTile : MonoBehaviour {
     }
 
     public virtual void onColission(EntityController entity){
-        if (!nextTileSet) tileMapController.NexTile();
-        nextTileSet = true;
+        tileMapController.NexTile();
         //if (baseDebug) Debug.Log("[BASETILE] Collision");
     }
 

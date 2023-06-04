@@ -98,7 +98,7 @@ public class TileMapController : MonoBehaviour
 
     // Spawns diagonal water tiles
     void SpawnWater(){
-        Debug.Log("Spawn Water: " + tileCount, this);
+        //Debug.Log("Spawn Water: " + tileCount, this);
         float tilesBetweenDiagonals = waterOffset*2;
         int offset = (int)(tileCount % tilesBetweenDiagonals);
         if (offset != 0) 
