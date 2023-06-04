@@ -23,6 +23,8 @@ public class BaseTile : MonoBehaviour {
     public AudioClip tapSound;
     public Material footstepParticleMaterial;
 
+    // FIXME: No estaba antes y no se si es necesario
+    public bool nextTileSet = false;
 
     protected void Start() {
         if (tileOrientation == Direction.X) transform.parent.Rotate(0, 90, 0);
