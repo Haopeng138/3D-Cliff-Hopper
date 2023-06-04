@@ -9,16 +9,18 @@ public class PanelManager : Singleton<PanelManager>
     private List<PanelInstanceModel> _listInstances = new List<PanelInstanceModel>();
 
     private ObjectPool _objectPool;
+    private SceneStateManager _sceneStateManager;
 
     private void Start()
     {
         Debug.Log("PanelManager Start");
         _objectPool = ObjectPool.Instance;
+        _sceneStateManager = SceneStateManager.Instance;
     }
 
     public void ShowPanel(string panelId,PanelsShowBehaviours behaviour = PanelsShowBehaviours.KEEP_PREVIOUS)
     {
-      
+        _sceneStateManager.sceneState = SceneState.PAUSED;
         GameObject panelInstance = _objectPool.GetObjectFromPool(panelId);
         panelInstance.transform.localPosition = Vector3.zero;
         panelInstance.SetActive(true);

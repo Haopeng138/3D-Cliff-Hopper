@@ -2,54 +2,34 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using UnityEngine.UI;
+using TMPro;
 public class SceneStateManager : Singleton<SceneStateManager>
 {
-    public enum SceneState {Playing, Paused, GameOver};
-    public SceneState sceneState = SceneState.Playing;
 
-    void Awake(){
-      
-        DontDestroyOnLoad(GameObject.Find("AudioManager"));
-        DontDestroyOnLoad(GameObject.Find("PopUpsManagers"));
-
+    public SceneState sceneState = SceneState.START;
+    [SerializeField] TextMeshProUGUI introText;
+    public SceneState getSceneState(){
+        return sceneState;
     }
+
+    public string PanelId;
+    // Cache the PanelManager instance
+    private PanelManager _panelManager;
+    public PanelsShowBehaviours Behaviour;
+
+
+    // void Awake(){
+    //     DontDestroyOnLoad(GameObject.Find("AudioManager"));
+    //     DontDestroyOnLoad(GameObject.Find("PopUpsManagers"));
+    // }
 
     public void Start()
     {
         _panelManager = PanelManager.Instance;
-    }
-
-    public void PauseGame(){
-        sceneState = SceneState.Paused;
-        Time.timeScale = 0;
-        DoShowPanel();
-    }
-
-    public void ResumeGame(){
-        sceneState = SceneState.Playing;
         Time.timeScale = 1;
-        HideLastPanel();
+        introText.text = "Press Space to start";
     }
-
-    public void GameOver(){
-        sceneState = SceneState.GameOver;
-        Time.timeScale = 0;
-        DoShowPanel();
-    }
-
-    public void RestartGame(){
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
-
-
-    public string PanelId;
-
-    // Cache the PanelManager instance
-    private PanelManager _panelManager;
-
-    public PanelsShowBehaviours Behaviour;
-
 
     public void DoShowPanel()
     {
@@ -61,30 +41,74 @@ public class SceneStateManager : Singleton<SceneStateManager>
         _panelManager.HideLastPanel();
     }
 
+    public void showScore(){
+        _panelManager.ShowPanel("Score", Behaviour);
+    }
 
 
     void Update(){
         
-        if (Input.GetKeyDown(KeyCode.Escape)){
-            switch (sceneState){
-                case SceneState.Playing:
+        switch(sceneState){
+            case SceneState.START:
+                introText.enabled = true;
+                if (Input.GetKeyDown(KeyCode.Space)){
+                    sceneState = SceneState.PLAYING;
+                }
+                break;
+            case SceneState.PLAYING:
+                introText.enabled = false;
+                if (Input.GetKeyDown(KeyCode.Escape)){
                     PauseGame();
-                    break;
-                case SceneState.Paused:
+                }
+                break;
+            case SceneState.PAUSED:
+                introText.enabled = false;
+                if (Input.GetKeyDown(KeyCode.Space)){
                     ResumeGame();
-                    break;
-                case SceneState.GameOver:
+                }
+                if (Input.GetKeyDown(KeyCode.Escape)){
                     ResumeGame();
-                    break;
-            }
+                }
+                break;
+            case SceneState.GAMEOVER:
+                introText.enabled = false;
+                if (Input.GetKeyDown(KeyCode.Escape)){
+                    RestartGame();
+                }
+                break;
         }
 
-        if (Input.GetKeyDown(KeyCode.R)) {
-           
-            // Load main menu
+        if (Input.GetKeyDown(KeyCode.R)){
             RestartGame();
         }
+        if (Input.GetKeyDown(KeyCode.F)){
+            // Clen all player prefs highscores
+            PlayerPrefs.DeleteAll();
+        }
 
+        
+    }
+    public void PauseGame(){
+        sceneState = SceneState.PAUSED;
+        Time.timeScale = 0;
+        DoShowPanel();
+    }
+
+    public void ResumeGame(){
+        sceneState = SceneState.PLAYING;
+        Time.timeScale = 1;
+        HideLastPanel();
+    }
+
+    public void GameOver(){
+       
+        showScore();
+        sceneState = SceneState.GAMEOVER;
+    }
+
+    public void RestartGame(){
+        sceneState = SceneState.START;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
 

@@ -52,13 +52,16 @@ public class EntityController : MonoBehaviour
 
     private bool calledOnExit = true;
 
+    public bool trackScore = true;
 
+    public SceneStateManager sceneStateManager;
     protected void Start()
     {
         moveSpeed = entityData.MoveSpeed;
         jumpsLeft = entityData.MaxJumps;
         currentHealth = entityData.Health;
         controller = GetComponent<CharacterController>();
+        sceneStateManager = SceneStateManager.Instance;
     }
 
   
@@ -121,8 +124,24 @@ public class EntityController : MonoBehaviour
         if (GodMode){
             if (currentTile != null) currentTile.onTap(this);
         }
-        
-        moveEnity();
+        //moveEnity();
+        switch(SceneStateManager.Instance.getSceneState()){
+            case SceneState.START:
+                state = EntityState.IDLE;
+                velocity = Vector3.zero;
+                moveEnity();
+                break;
+            case SceneState.PAUSED:
+                
+                break;
+            case SceneState.PLAYING:
+                moveEnity();
+                break;
+            case SceneState.GAMEOVER:
+                
+                break;
+        }
+       
     }
 
 #region Health
@@ -218,8 +237,10 @@ public class EntityController : MonoBehaviour
             break;
         }
         var point = new Vector3(rotationPoint.x, transform.position.y, rotationPoint.z);
+        if (trackScore) ScoreManager.Instance.addTap();
+
         //ScoreManager.Instance.addScore(1);
-        addScore(1);
+        //addScore(1);
         controller.Move(point - transform.position);
     }
 
@@ -281,8 +302,6 @@ public class EntityController : MonoBehaviour
                 }
             break;
             case EntityState.DEAD:
-
-                //Debug.Log("DEAD", this);
             break;
             default:
                 if (debug) Debug.Log("Unknown state: " + state);

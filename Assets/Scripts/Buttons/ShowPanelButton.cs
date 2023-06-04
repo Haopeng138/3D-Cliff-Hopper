@@ -8,7 +8,6 @@ public class ShowPanelButton : MonoBehaviour
     private PanelManager _panelManager;
 
     public PanelsShowBehaviours Behaviour;
-
     public void Start()
     {
         _panelManager = PanelManager.Instance;
@@ -19,4 +18,8 @@ public class ShowPanelButton : MonoBehaviour
         _panelManager.ShowPanel(PanelId, Behaviour);
     }
 
+    public void QuitApp()
+    {
+        Application.Quit();
+    }
 }

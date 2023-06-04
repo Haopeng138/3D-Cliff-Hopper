@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class CollectCoin : MonoBehaviour
 {
-    public int coin;
     // Start is called before the first frame update
     void Start()
     {
@@ -13,8 +12,7 @@ public class CollectCoin : MonoBehaviour
 
     public void OnTriggerEnter(Collider Col) {
         if(Col.gameObject.tag == "Coin"){
-            coin++;
-            ScoreManager.Instance.addScore(5);
+            ScoreManager.Instance.addCoin();
             AudioManager.instance.PlaySFX("CollectCoin");
             Destroy(Col.gameObject);
         }
