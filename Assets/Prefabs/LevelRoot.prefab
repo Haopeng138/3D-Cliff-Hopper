@@ -916,17 +916,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debug: 0
-  maxTiles: 250
-  tileSpawnLocation: {x: 0, y: 0, z: 0}
-  water: {fileID: 0}
-  currentTile: {fileID: 11400000, guid: 9aa3d42a24ffd264d94246ea27ab42b2, type: 2}
+  water: {fileID: 4189776826824054295, guid: 4e8024f7dd3c0ca429b91e7993382243, type: 3}
+  waterOffset: 10
+  waterWidth: 7
   rotateTile: {fileID: 11400000, guid: 981c5cfa157fc0b499856434a65208e4, type: 2}
   defaultTile: {fileID: 11400000, guid: 9aa3d42a24ffd264d94246ea27ab42b2, type: 2}
   coin: {fileID: 3995396238840182378, guid: c757fa4609d7e47f099537a5cbafee33, type: 3}
   coinSpawnTileCount: 10
+  initialTileCount: 40
   centerOffsetMin: 2
   centerOffsetMax: 5
-  maxHeight: 10
+  maxHeight: 7
   minHeight: -3
 --- !u!1 &1879121358768941033
 GameObject:

@@ -4,21 +4,35 @@ using UnityEditor;
 
 public class BaseTile : MonoBehaviour {
     public bool baseDebug = false;
+    [Header("Tile Controller Properties")]
+    [Tooltip("The tilemap controller that spawned this tile, these options are only shown for debug purposes, you should not change")]
     public TileMapController tileMapController;
     [Tooltip("The orientation of the tile")]
     public Direction tileOrientation; 
     [Tooltip("The offset of the tile in the tilemap")]
     public int offset;
+    
+
     [Header("Tile Options")]    
     [Tooltip("The area in which the tile will listen for taps")]
     public float area = .25f;
     [Tooltip("If true, the tile will override the default behaviour (jump)")]
     public bool overrideTap = false;
+
+    public AudioClip footstepSound;
+    public AudioClip tapSound;
+    public Material footstepParticleMaterial;
+
+    // FIXME: No estaba antes y no se si es necesario
+    public bool nextTileSet = false;
+
     protected void Start() {
         if (tileOrientation == Direction.X) transform.parent.Rotate(0, 90, 0);
     }
 
     public virtual void onColission(EntityController entity){
+        if (!nextTileSet) tileMapController.NexTile();
+        nextTileSet = true;
         //if (baseDebug) Debug.Log("[BASETILE] Collision");
     }
 
