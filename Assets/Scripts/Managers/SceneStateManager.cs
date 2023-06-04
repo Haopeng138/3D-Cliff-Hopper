@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using UnityEngine.UI;
+using TMPro;
 public class SceneStateManager : Singleton<SceneStateManager>
 {
 
     public SceneState sceneState = SceneState.START;
-
+    [SerializeField] TextMeshProUGUI introText;
     public SceneState getSceneState(){
         return sceneState;
     }
@@ -27,6 +28,7 @@ public class SceneStateManager : Singleton<SceneStateManager>
     {
         _panelManager = PanelManager.Instance;
         Time.timeScale = 1;
+        introText.text = "Press Space to start";
     }
 
     public void DoShowPanel()
@@ -48,21 +50,25 @@ public class SceneStateManager : Singleton<SceneStateManager>
         
         switch(sceneState){
             case SceneState.START:
+                introText.enabled = true;
                 if (Input.GetKeyDown(KeyCode.Space)){
                     sceneState = SceneState.PLAYING;
                 }
                 break;
             case SceneState.PLAYING:
+                introText.enabled = false;
                 if (Input.GetKeyDown(KeyCode.Escape)){
                     PauseGame();
                 }
                 break;
             case SceneState.PAUSED:
+                introText.enabled = false;
                 if (Input.GetKeyDown(KeyCode.Escape)){
                     ResumeGame();
                 }
                 break;
             case SceneState.GAMEOVER:
+                introText.enabled = false;
                 if (Input.GetKeyDown(KeyCode.Escape)){
                     RestartGame();
                 }
