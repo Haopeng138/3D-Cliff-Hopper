@@ -26,11 +26,11 @@ public class ScoreManager : Singleton<ScoreManager>
         scoreText.text = "Score: " + score;
     }
 
-    public void UpdateHighScore(int newScore)
+    public void UpdateHighScore()
     {
-        if (newScore > highScore)
+        if (score > highScore)
         {
-            highScore = newScore;
+            highScore = score;
             highScoreText.text = "HighScore: " + highScore;
             PlayerPrefs.SetInt("highScore",highScore);
         }

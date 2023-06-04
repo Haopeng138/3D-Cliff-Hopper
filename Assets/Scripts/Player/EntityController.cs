@@ -52,6 +52,7 @@ public class EntityController : MonoBehaviour
 
     private bool calledOnExit = true;
 
+    public bool trackScore = true;
 
     protected void Start()
     {
@@ -120,7 +121,23 @@ public class EntityController : MonoBehaviour
             if (currentTile != null) currentTile.onTap(this);
         }
         
-        moveEnity();
+        switch(SceneStateManager.sceneState){
+            case SceneStateManager.SceneState.START:
+                state = EntityState.IDLE;
+                velocity = Vector3.zero;
+                moveEnity();
+                break;
+            case SceneStateManager.SceneState.PAUSED:
+                
+                break;
+            case SceneStateManager.SceneState.PLAYING:
+                moveEnity();
+                break;
+            case SceneStateManager.SceneState.GAMEOVER:
+                
+                break;
+        }
+       
     }
 
 #region Health
@@ -216,7 +233,7 @@ public class EntityController : MonoBehaviour
             break;
         }
         var point = new Vector3(rotationPoint.x, transform.position.y, rotationPoint.z);
-        ScoreManager.Instance.addScore(1);
+        if (trackScore) ScoreManager.Instance.addScore(1);
         controller.Move(point - transform.position);
     }
 
@@ -273,7 +290,7 @@ public class EntityController : MonoBehaviour
                 }
             break;
             case EntityState.DEAD:
-                // Debug.Log("DEAD");
+                //Debug.Log("DEAD");
             break;
             default:
                 if (debug) Debug.Log("Unknown state: " + state);

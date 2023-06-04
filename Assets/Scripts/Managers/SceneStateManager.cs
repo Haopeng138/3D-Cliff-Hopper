@@ -5,51 +5,25 @@ using UnityEngine.SceneManagement;
 
 public class SceneStateManager : Singleton<SceneStateManager>
 {
-    public enum SceneState {Playing, Paused, GameOver};
-    public SceneState sceneState = SceneState.Playing;
+    public enum SceneState {START,PLAYING, PAUSED, GAMEOVER};
+    public static SceneState sceneState = SceneState.START;
+
+    public string PanelId;
+    // Cache the PanelManager instance
+    private PanelManager _panelManager;
+    public PanelsShowBehaviours Behaviour;
+
 
     void Awake(){
-      
         DontDestroyOnLoad(GameObject.Find("AudioManager"));
         DontDestroyOnLoad(GameObject.Find("PopUpsManagers"));
-
     }
 
     public void Start()
     {
         _panelManager = PanelManager.Instance;
-    }
-
-    public void PauseGame(){
-        sceneState = SceneState.Paused;
-        Time.timeScale = 0;
-        DoShowPanel();
-    }
-
-    public void ResumeGame(){
-        sceneState = SceneState.Playing;
         Time.timeScale = 1;
-        HideLastPanel();
     }
-
-    public void GameOver(){
-        sceneState = SceneState.GameOver;
-        Time.timeScale = 0;
-        DoShowPanel();
-    }
-
-    public void RestartGame(){
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
-
-
-    public string PanelId;
-
-    // Cache the PanelManager instance
-    private PanelManager _panelManager;
-
-    public PanelsShowBehaviours Behaviour;
-
 
     public void DoShowPanel()
     {
@@ -65,26 +39,58 @@ public class SceneStateManager : Singleton<SceneStateManager>
 
     void Update(){
         
-        if (Input.GetKeyDown(KeyCode.Escape)){
-            switch (sceneState){
-                case SceneState.Playing:
+        switch(sceneState){
+            case SceneState.START:
+                if (Input.GetKeyDown(KeyCode.Space)){
+                    sceneState = SceneState.PLAYING;
+                }
+                break;
+            case SceneState.PLAYING:
+                if (Input.GetKeyDown(KeyCode.Escape)){
                     PauseGame();
-                    break;
-                case SceneState.Paused:
+                }
+                if (Input.GetKeyDown(KeyCode.M)){
+                    sceneState = SceneState.GAMEOVER;
+                }
+                break;
+            case SceneState.PAUSED:
+                if (Input.GetKeyDown(KeyCode.Escape)){
                     ResumeGame();
-                    break;
-                case SceneState.GameOver:
-                    ResumeGame();
-                    break;
-            }
+                }
+                break;
+            case SceneState.GAMEOVER:
+                Debug.Log("Game Over");
+                break;
         }
 
-        if (Input.GetKeyDown(KeyCode.R)) {
-           
-            // Load main menu
+        if (Input.GetKeyDown(KeyCode.R)){
             RestartGame();
         }
+        if (Input.GetKeyDown(KeyCode.F)){
+            PlayerPrefs.DeleteAll();
+        }
+    }
+    public void PauseGame(){
+        sceneState = SceneState.PAUSED;
+        Time.timeScale = 0;
+        DoShowPanel();
+    }
 
+    public void ResumeGame(){
+        sceneState = SceneState.PLAYING;
+        Time.timeScale = 1;
+        HideLastPanel();
+    }
+
+    public void GameOver(){
+        sceneState = SceneState.GAMEOVER;
+        Time.timeScale = 0;
+        DoShowPanel();
+    }
+
+    public void RestartGame(){
+        sceneState = SceneState.START;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
 
