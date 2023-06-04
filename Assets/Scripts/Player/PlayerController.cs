@@ -6,6 +6,13 @@ using UnityEditor;
 
 public class PlayerController : EntityController
 {
+    [Header("Player Controller")]
+    [Space]
+    [SerializeField]
+    private ParticleSystem dustParticles;
+    [SerializeField]
+    private ParticleSystem hitParticles;
+
     private Animator animator;
     [SerializeField]
     private RuntimeAnimatorController playerAnimatorController;
@@ -24,9 +31,14 @@ public class PlayerController : EntityController
     //TODO: Remove this
     //public float timeScale = 1f;
 
+    private GameObject ragdollRoot;
+
     void Start()
     {
-        
+        ragdollRoot = transform.Find("Rig1").gameObject;
+        setRagdollState(false);
+
+
         base.Start();
         animator = GetComponent<Animator>();
         animator.runtimeAnimatorController = playerAnimatorController;
@@ -37,6 +49,38 @@ public class PlayerController : EntityController
             }
         }
 
+    }
+
+    public void setRagdollState (bool active){
+        if (ragdollRoot == null){
+             Debug.LogError("[PLAYER] Ragdoll root not found");
+             return;
+        }
+        //if (active) ragdollRoot.transform.Translate(new Vector3(1,0,0) *.35f);
+
+        Stack<GameObject> ragdollStack = new Stack<GameObject>();
+        ragdollStack.Push(ragdollRoot);
+
+        while(ragdollStack.Count > 0){
+            GameObject current = ragdollStack.Pop();
+
+            Rigidbody rb = current.GetComponent<Rigidbody>();
+            Collider col = current.GetComponent<Collider>();
+            
+            if (rb != null && col != null){
+                //rb.isKinematic = true;
+                rb.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
+                col.enabled = active;
+                
+            }
+
+            foreach (Transform child in current.GetComponentInChildren<Transform>()){
+                if (child != null) ragdollStack.Push(child.gameObject);
+            }
+        }
+
+        //if (active) ragdollRoot.GetComponent<Rigidbody>().AddForce(Vector3.up * 10f, ForceMode.Impulse);
+        
     }
 
     void Update(){
@@ -61,6 +105,24 @@ public class PlayerController : EntityController
                 animator.ResetTrigger("enterGodMode");
             }
         }
+
+        if (state == EntityState.DEAD){
+            deathFrames++;
+            
+            if (deathFrames == 1){
+                ragdollRoot.transform.SetLocalPositionAndRotation(new Vector3(ragdollRoot.transform.localPosition.x, Mathf.Max(0.608f, ragdollRoot.transform.localPosition.y), ragdollRoot.transform.localPosition.z), ragdollRoot.transform.localRotation);
+            }
+            
+            if (deathFrames > 2){
+                if (state == EntityState.DEAD && !controller.enabled){
+                    setRagdollState(true);
+                }
+
+            } 
+        }
+    }
+    int deathFrames = 0;  
+    private void LateUpdate() {
     }
 
 
@@ -107,11 +169,16 @@ public class PlayerController : EntityController
     }
 
     override protected void enterDeadState(){
-        animator.SetTrigger(deadParameter);
+        //animator.SetTrigger(deadParameter);
         AudioManager.instance.PlaySFX("Lose");
         ScoreManager.Instance.UpdateHighScore();
         SceneStateManager.Instance.GameOver();
+        
+        animator.enabled = false;
+        controller.enabled = false;
+
     }
+
 
     #endregion
 

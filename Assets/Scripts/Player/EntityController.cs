@@ -65,7 +65,7 @@ public class EntityController : MonoBehaviour
     }
 
   
-    void OnControllerColliderHit(ControllerColliderHit hit){
+    protected void OnControllerColliderHit(ControllerColliderHit hit){
         
         BaseTile tile = hit.gameObject.GetComponent<BaseTile>();
         if (tile != null){    
@@ -116,6 +116,8 @@ public class EntityController : MonoBehaviour
                 jumpStateUpdate();
             break;
             case EntityState.DEAD:
+                //Debug.Log("DEAD", this);
+                return;
             break;
         }
 
@@ -150,8 +152,8 @@ public class EntityController : MonoBehaviour
 
         if (debug) Debug.Log(gameObject.name + " - Taking Damage: " + damage);
         damage = Mathf.Abs(damage);
-        currentHealth -= damage;
-        if (entityData.Health <= 0){
+        currentHealth = currentHealth - damage;
+        if (currentHealth <= 0){
             changeState(EntityState.DEAD);
         }
     }
@@ -165,8 +167,8 @@ public class EntityController : MonoBehaviour
         }
     }
 
-    public void Kil(){
-        if (!GodMode) TakeDamage(entityData.Health);
+    public void Kill(){
+        if (!GodMode) TakeDamage(entityData.Health + 1);
     }
 
 #endregion
@@ -236,7 +238,14 @@ public class EntityController : MonoBehaviour
         }
         var point = new Vector3(rotationPoint.x, transform.position.y, rotationPoint.z);
         if (trackScore) ScoreManager.Instance.addTap();
+
+        //ScoreManager.Instance.addScore(1);
+        //addScore(1);
         controller.Move(point - transform.position);
+    }
+
+    public virtual void addScore(int score){
+        if (ScoreManager.Instance != null) ScoreManager.Instance.addScore(score);
     }
 
 
@@ -288,11 +297,11 @@ public class EntityController : MonoBehaviour
                     changeState(EntityState.MOVING);
                 }
                 else if (transform.position.y < -4){
+                    Debug.Log("Falling to death");
                     changeState(EntityState.DEAD);
                 }
             break;
             case EntityState.DEAD:
-                //Debug.Log("DEAD");
             break;
             default:
                 if (debug) Debug.Log("Unknown state: " + state);
@@ -343,6 +352,7 @@ public class EntityController : MonoBehaviour
             case EntityState.DEAD:
                 directionVector = Vector2.zero;
                 velocity = Vector3.zero;
+                move = false;
                 enterDeadState();
             break;
         }

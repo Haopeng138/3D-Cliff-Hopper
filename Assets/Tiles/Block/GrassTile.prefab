@@ -45,10 +45,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 570642539c11fbc47b9447c6fad7c32a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  baseDebug: 0
   tileMapController: {fileID: 0}
   tileOrientation: 0
-  area: 0.25
   offset: 0
+  area: 0.25
+  overrideTap: 0
+  footstepSound: {fileID: 0}
+  tapSound: {fileID: 0}
+  footstepParticleMaterial: {fileID: 0}
 --- !u!65 &3928436272957231586
 BoxCollider:
   m_ObjectHideFlags: 0
