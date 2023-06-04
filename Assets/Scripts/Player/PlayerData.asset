@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b8366f7c30c1c64298a9b41047d9f1c, type: 3}
   m_Name: PlayerData
   m_EditorClassIdentifier: 
-  <Health>k__BackingField: 5
-  <FallMultiplier>k__BackingField: 1.3
+  <Health>k__BackingField: 1
+  <FallMultiplier>k__BackingField: 1.35
   <Gravity>k__BackingField: -9.8
   <MoveSpeed>k__BackingField: 3.5
   <MaxJumps>k__BackingField: 2
-  <JumpSpeed>k__BackingField: 4.5
+  <JumpSpeed>k__BackingField: 4.25
   Skin: {fileID: 2100000, guid: 96762f0005604c94bb01dd8f530b53fb, type: 2}
