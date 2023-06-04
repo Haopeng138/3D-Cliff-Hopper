@@ -67,8 +67,8 @@ public class SceneStateManager : Singleton<SceneStateManager>
             RestartGame();
         }
         if (Input.GetKeyDown(KeyCode.F)){
+            // Clen all player prefs highscores
             PlayerPrefs.DeleteAll();
-            sceneState = SceneState.GAMEOVER;
         }
 
         

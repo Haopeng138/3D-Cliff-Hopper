@@ -19,4 +19,8 @@ public class ShowPanelButton : MonoBehaviour
         _panelManager.ShowPanel(PanelId, Behaviour);
     }
 
+    public void QuitApp()
+    {
+        Application.Quit();
+    }
 }
