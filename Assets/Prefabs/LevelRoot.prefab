@@ -36,7 +36,7 @@ RectTransform:
   - {fileID: 1879121358134754408}
   - {fileID: 1879121357326810138}
   m_Father: {fileID: 69646940494237435}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -174,6 +174,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 761fc8323f4734eb9833c0ec68b5f9b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sceneState: 0
+  introText: {fileID: 0}
   PanelId: MainMenu
   Behaviour: 0
 --- !u!1 &1879121357326810137
@@ -256,7 +258,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 69646940494237435}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1879121357354208581
 MonoBehaviour:
@@ -471,7 +473,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 69646940494237435}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1879121357443132655
 MonoBehaviour:
@@ -487,6 +489,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scoreText: {fileID: 1185354054188332922}
   highScoreText: {fileID: 4842335844205614254}
+  score: 0
+  highScore: 0
+  taps: 0
+  coins: 0
 --- !u!1 &1879121358060732825
 GameObject:
   m_ObjectHideFlags: 0
@@ -520,7 +526,7 @@ Transform:
   - {fileID: 1879121358768941035}
   - {fileID: 1879121358886832052}
   m_Father: {fileID: 69646940494237435}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1879121358060732826
 MonoBehaviour:
@@ -1137,10 +1143,10 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1879121356993175077}
   - {fileID: 1879121357443132648}
   - {fileID: 1879121358060732827}
   - {fileID: 1879121357354208582}
-  - {fileID: 1879121356993175077}
   - {fileID: 1879121357214769998}
   - {fileID: 6426465497637015221}
   m_Father: {fileID: 1879121358731319158}
