@@ -6,9 +6,11 @@ using UnityEngine.SceneManagement;
 public class SceneStateManager : Singleton<SceneStateManager>
 {
 
-    public static SceneState sceneState = SceneState.START;
+    public SceneState sceneState = SceneState.START;
 
-
+    public SceneState getSceneState(){
+        return sceneState;
+    }
 
     public string PanelId;
     // Cache the PanelManager instance
@@ -16,10 +18,10 @@ public class SceneStateManager : Singleton<SceneStateManager>
     public PanelsShowBehaviours Behaviour;
 
 
-    void Awake(){
-        DontDestroyOnLoad(GameObject.Find("AudioManager"));
-        DontDestroyOnLoad(GameObject.Find("PopUpsManagers"));
-    }
+    // void Awake(){
+    //     DontDestroyOnLoad(GameObject.Find("AudioManager"));
+    //     DontDestroyOnLoad(GameObject.Find("PopUpsManagers"));
+    // }
 
     public void Start()
     {

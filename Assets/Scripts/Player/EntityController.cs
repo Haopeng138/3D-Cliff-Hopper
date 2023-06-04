@@ -122,8 +122,8 @@ public class EntityController : MonoBehaviour
         if (GodMode){
             if (currentTile != null) currentTile.onTap(this);
         }
-        
-        switch(SceneStateManager.sceneState){
+        //moveEnity();
+        switch(SceneStateManager.Instance.getSceneState()){
             case SceneState.START:
                 state = EntityState.IDLE;
                 velocity = Vector3.zero;
