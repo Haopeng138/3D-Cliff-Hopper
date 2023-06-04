@@ -63,7 +63,7 @@ public class SceneStateManager : Singleton<SceneStateManager>
                 break;
             case SceneState.PAUSED:
                 introText.enabled = false;
-                if (Input.GetKeyDown(KeyCode.Escape)){
+                if (Input.GetKeyDown(KeyCode.Space)){
                     ResumeGame();
                 }
                 break;
