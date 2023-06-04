@@ -17,6 +17,8 @@ public class TriggerTile : BaseTile {
     [SerializeField]
     protected bool triggerDebug = false;
     protected Animator animator;
+    [SerializeField]
+    protected AudioClip triggerSound;
 
     protected void Start() {
         base.Start();

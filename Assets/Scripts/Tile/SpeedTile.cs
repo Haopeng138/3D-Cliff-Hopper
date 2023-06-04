@@ -18,9 +18,11 @@ public class SpeedTile : BaseTile
     }
     
     public override void onColission(EntityController entity) {
+        base.onColission(entity);
         applySpeedMultiplier(entity, speedMultiplier);
     }
     public override void onExit(EntityController entity) { 
+        base.onExit(entity);
         applySpeedMultiplier(entity, speedReducer);
     }
 }
