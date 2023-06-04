@@ -66,6 +66,9 @@ public class SceneStateManager : Singleton<SceneStateManager>
                 if (Input.GetKeyDown(KeyCode.Space)){
                     ResumeGame();
                 }
+                if (Input.GetKeyDown(KeyCode.Escape)){
+                    ResumeGame();
+                }
                 break;
             case SceneState.GAMEOVER:
                 introText.enabled = false;
@@ -98,8 +101,9 @@ public class SceneStateManager : Singleton<SceneStateManager>
     }
 
     public void GameOver(){
-        sceneState = SceneState.GAMEOVER;
+       
         showScore();
+        sceneState = SceneState.GAMEOVER;
     }
 
     public void RestartGame(){
