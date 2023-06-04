@@ -134,8 +134,12 @@ MonoBehaviour:
   tileMapController: {fileID: 0}
   tileOrientation: 0
   offset: 0
-  area: 0.35
+  area: 0.45
   overrideTap: 0
+  footstepSound: {fileID: 0}
+  tapSound: {fileID: 0}
+  footstepParticleMaterial: {fileID: 0}
+  nextTileSet: 0
   rotateDebug: 0
 --- !u!65 &8715816630878349414
 BoxCollider:

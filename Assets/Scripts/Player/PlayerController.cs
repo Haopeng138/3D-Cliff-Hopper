@@ -69,8 +69,9 @@ public class PlayerController : EntityController
             
             if (rb != null && col != null){
                 //rb.isKinematic = true;
-                rb.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
-                col.enabled = active;
+                rb.collisionDetectionMode = CollisionDetectionMode.Discrete;
+                col.enabled = true;
+                rb.velocity = velocity;
                 
             }
 
@@ -105,25 +106,8 @@ public class PlayerController : EntityController
                 animator.ResetTrigger("enterGodMode");
             }
         }
-
-        if (state == EntityState.DEAD){
-            deathFrames++;
-            
-            if (deathFrames == 1){
-                ragdollRoot.transform.SetLocalPositionAndRotation(new Vector3(ragdollRoot.transform.localPosition.x, Mathf.Max(0.608f, ragdollRoot.transform.localPosition.y), ragdollRoot.transform.localPosition.z), ragdollRoot.transform.localRotation);
-            }
-            
-            if (deathFrames > 2){
-                if (state == EntityState.DEAD && !controller.enabled){
-                    setRagdollState(true);
-                }
-
-            } 
-        }
     }
-    int deathFrames = 0;  
-    private void LateUpdate() {
-    }
+
 
 
     override public bool Jump(){
@@ -170,6 +154,7 @@ public class PlayerController : EntityController
 
     override protected void enterDeadState(){
         //animator.SetTrigger(deadParameter);
+        setRagdollState(true);
         AudioManager.instance.PlaySFX("Lose");
         ScoreManager.Instance.UpdateHighScore();
         SceneStateManager.Instance.GameOver();
