@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571328, b: 0.3069217, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571337, b: 0.3069219, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -776,7 +776,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 761fc8323f4734eb9833c0ec68b5f9b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneState: 0
   PanelId: MainMenu
   Behaviour: 0
 --- !u!1 &723135995
@@ -6090,6 +6089,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1879121356993175097, guid: f72519045d70eb741b8292658353dc1d, type: 3}
+      propertyPath: PrefabsForPool.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1879121356993175097, guid: f72519045d70eb741b8292658353dc1d, type: 3}
+      propertyPath: PrefabsForPool.Array.data[4]
+      value: 
+      objectReference: {fileID: 3128286266903483218, guid: 9f396fa1795484568b254d95e1b06456, type: 3}
     - target: {fileID: 1879121358731319156, guid: f72519045d70eb741b8292658353dc1d, type: 3}
       propertyPath: m_Name
       value: LevelRoot
@@ -6612,7 +6619,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 761fc8323f4734eb9833c0ec68b5f9b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneState: 0
   PanelId: MainMenu
   Behaviour: 0
 --- !u!4 &1623225050
@@ -6734,6 +6740,10 @@ MonoBehaviour:
   offset: 0
   area: 0.25
   overrideTap: 0
+  footstepSound: {fileID: 0}
+  tapSound: {fileID: 0}
+  footstepParticleMaterial: {fileID: 0}
+  nextTileSet: 0
 --- !u!1001 &1862170559
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7046,6 +7056,10 @@ PrefabInstance:
       propertyPath: entityData
       value: 
       objectReference: {fileID: 11400000, guid: 3f6cfec5725b5e94e9311607a0ed2728, type: 2}
+    - target: {fileID: 1546342700452498475, guid: 659cc8e2627c2e94c80c73a7237f418a, type: 3}
+      propertyPath: trackScore
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1546342700452498475, guid: 659cc8e2627c2e94c80c73a7237f418a, type: 3}
       propertyPath: fallMultiplier
       value: 1.5

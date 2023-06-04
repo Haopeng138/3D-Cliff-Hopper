@@ -54,12 +54,14 @@ public class EntityController : MonoBehaviour
 
     public bool trackScore = true;
 
+    public SceneStateManager sceneStateManager;
     protected void Start()
     {
         moveSpeed = entityData.MoveSpeed;
         jumpsLeft = entityData.MaxJumps;
         currentHealth = entityData.Health;
         controller = GetComponent<CharacterController>();
+        sceneStateManager = SceneStateManager.Instance;
     }
 
   
@@ -122,18 +124,18 @@ public class EntityController : MonoBehaviour
         }
         
         switch(SceneStateManager.sceneState){
-            case SceneStateManager.SceneState.START:
+            case SceneState.START:
                 state = EntityState.IDLE;
                 velocity = Vector3.zero;
                 moveEnity();
                 break;
-            case SceneStateManager.SceneState.PAUSED:
+            case SceneState.PAUSED:
                 
                 break;
-            case SceneStateManager.SceneState.PLAYING:
+            case SceneState.PLAYING:
                 moveEnity();
                 break;
-            case SceneStateManager.SceneState.GAMEOVER:
+            case SceneState.GAMEOVER:
                 
                 break;
         }

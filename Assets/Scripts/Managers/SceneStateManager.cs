@@ -5,8 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class SceneStateManager : Singleton<SceneStateManager>
 {
-    public enum SceneState {START,PLAYING, PAUSED, GAMEOVER};
+
     public static SceneState sceneState = SceneState.START;
+
+
 
     public string PanelId;
     // Cache the PanelManager instance
@@ -36,7 +38,6 @@ public class SceneStateManager : Singleton<SceneStateManager>
     }
 
 
-
     void Update(){
         
         switch(sceneState){
@@ -49,9 +50,6 @@ public class SceneStateManager : Singleton<SceneStateManager>
                 if (Input.GetKeyDown(KeyCode.Escape)){
                     PauseGame();
                 }
-                if (Input.GetKeyDown(KeyCode.M)){
-                    sceneState = SceneState.GAMEOVER;
-                }
                 break;
             case SceneState.PAUSED:
                 if (Input.GetKeyDown(KeyCode.Escape)){
@@ -59,7 +57,9 @@ public class SceneStateManager : Singleton<SceneStateManager>
                 }
                 break;
             case SceneState.GAMEOVER:
-                Debug.Log("Game Over");
+                if (Input.GetKeyDown(KeyCode.Escape)){
+                    RestartGame();
+                }
                 break;
         }
 
@@ -68,7 +68,10 @@ public class SceneStateManager : Singleton<SceneStateManager>
         }
         if (Input.GetKeyDown(KeyCode.F)){
             PlayerPrefs.DeleteAll();
+            sceneState = SceneState.GAMEOVER;
         }
+
+        
     }
     public void PauseGame(){
         sceneState = SceneState.PAUSED;
