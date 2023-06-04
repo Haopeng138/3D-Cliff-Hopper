@@ -1,18 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
+using TMPro;
 public class ScoreMenu : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    [SerializeField] TextMeshProUGUI scoreText;
+    [SerializeField] TextMeshProUGUI highScoreText;
+    [SerializeField] TextMeshProUGUI tapsText;
+    [SerializeField] TextMeshProUGUI coinsText;
+
+    private ScoreManager scoreManager;
+    void Start(){
+        scoreManager = ScoreManager.Instance;
+        scoreText.text = "Score: " + scoreManager.score;
+        highScoreText.text = "HighScore: " + scoreManager.highScore;
+        tapsText.text = "Taps: " + scoreManager.taps;
+        coinsText.text = "Coins: " + scoreManager.coins;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    void Update(){
+        scoreText.text = "Score: " + scoreManager.score;
+        highScoreText.text = "HighScore: " + scoreManager.highScore;
+        tapsText.text = "Taps: " + scoreManager.taps;
+        coinsText.text = "Coins: " + scoreManager.coins;
     }
 }

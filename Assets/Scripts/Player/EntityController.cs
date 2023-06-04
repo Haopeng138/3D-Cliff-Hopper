@@ -235,7 +235,7 @@ public class EntityController : MonoBehaviour
             break;
         }
         var point = new Vector3(rotationPoint.x, transform.position.y, rotationPoint.z);
-        if (trackScore) ScoreManager.Instance.addScore(1);
+        if (trackScore) ScoreManager.Instance.addTap();
         controller.Move(point - transform.position);
     }
 
